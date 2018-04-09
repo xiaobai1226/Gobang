@@ -1,4 +1,7 @@
 package com.bpf.gobang.panel;
+
+import javax.swing.JPanel;
+
 /**
  * <p>Title: MenuPanel</p>
  * <p>Description: </p>
@@ -6,6 +9,6 @@ package com.bpf.gobang.panel;
  * @date	2018年4月8日下午4:53:27
  * @version 1.0.0
  */
-public class MenuPanel {
+public class MenuPanel extends JPanel{
 
 }
