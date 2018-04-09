@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 /**
  * <p>Title: MenuPanel</p>
  * <p>Description: </p>
- * @author	°×Åô·É
- * @date	2018Äê4ÔÂ8ÈÕÏÂÎç4:53:27
+ * @author	ç™½é¹é£
+ * @date	2018å¹´4æœˆ8æ—¥4:53:27
  * @version 1.0.0
  */
 public class MenuPanel extends JPanel{
