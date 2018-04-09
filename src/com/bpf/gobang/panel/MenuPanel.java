@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 /**
  * <p>Title: MenuPanel</p>
- * <p>Description: </p>
+ * <p>Description: 菜单面板</p>
  * @author	白鹏飞
  * @date	2018年4月8日4:53:27
  * @version 1.0.0
