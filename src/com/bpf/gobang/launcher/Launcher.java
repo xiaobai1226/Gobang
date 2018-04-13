@@ -10,6 +10,6 @@ import com.bpf.gobang.frame.MenuFrame;
  */
 public class Launcher {
 	public static void main(String[] args) {
-		MenuFrame gameFrame = new MenuFrame();
+		MenuFrame.getMenuFrame();
 	}
 }

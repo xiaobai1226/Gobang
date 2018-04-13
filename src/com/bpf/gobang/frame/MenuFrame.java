@@ -15,12 +15,27 @@ import com.bpf.gobang.panel.MenuPanel;
  * @version 1.0.0
  */
 public class MenuFrame extends JFrame{
-	Common common = Common.getCommon();
-	Menu menu = Menu.getMenu();
+private static MenuFrame menuFrame = null;
 	
-	public MenuFrame() {
+	private MenuFrame() {
 		init();
 	}
+	
+	//提供一个全局的静态方法
+    public static MenuFrame getMenuFrame(){
+        if(menuFrame == null){
+            synchronized(MenuFrame.class){
+                if(menuFrame == null){
+                	menuFrame = new MenuFrame();
+                }
+            }
+        }
+        return menuFrame;
+    }
+	
+	
+	Common common = Common.getCommon();
+	Menu menu = Menu.getMenu();
 	
 	public void init(){
 		//获得菜单宽度
@@ -30,10 +45,6 @@ public class MenuFrame extends JFrame{
 		//获得菜单窗体坐标位置
 		int[] menuCoordinate = CommonAlgorithm.calculateFramePosition(menu_width, menu_height);
 		
-		//使当前窗体显示
-		this.setVisible(true);
-		//禁止当前窗体大小改变
-		this.setResizable(false);
 		//设置窗体标题
 		this.setTitle("五子棋");
 		//设置窗体图标
@@ -43,6 +54,14 @@ public class MenuFrame extends JFrame{
 		//设置关闭窗体后，程序结束
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.setContentPane(new MenuPanel());
+		//新建一个菜单面板
+		MenuPanel menuPanel = MenuPanel.getMenuPanel();
+		//将菜单面板添加到窗体中
+		this.add(menuPanel);
+		
+		//使当前窗体显示
+		this.setVisible(true);
+		//禁止当前窗体大小改变
+		this.setResizable(false);
 	}
 }
