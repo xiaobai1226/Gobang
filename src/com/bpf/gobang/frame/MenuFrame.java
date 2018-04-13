@@ -15,7 +15,7 @@ import com.bpf.gobang.panel.MenuPanel;
  * @version 1.0.0
  */
 public class MenuFrame extends JFrame{
-private static MenuFrame menuFrame = null;
+	private static MenuFrame menuFrame = null;
 	
 	private MenuFrame() {
 		init();

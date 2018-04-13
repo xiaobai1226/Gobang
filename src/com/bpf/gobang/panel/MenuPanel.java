@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import com.bpf.gobang.entity.Menu;
+import com.bpf.gobang.listener.MenuMouseListener;
 import com.bpf.gobang.listener.MenuMouseMotionListener;
 
 /**
@@ -40,6 +41,7 @@ public class MenuPanel extends JPanel{
 	Menu menu = Menu.getMenu();
 	
 	public void init() {
+		this.addMouseListener(new MenuMouseListener());
 		this.addMouseMotionListener(new MenuMouseMotionListener());
 	}
 	
