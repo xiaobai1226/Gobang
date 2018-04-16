@@ -56,7 +56,7 @@ public class CheckerboardFrame extends JFrame{
 		
 		//新建一个菜单面板
 		CheckerboardPanel checkerboardPanel = CheckerboardPanel.getCheckerboardPanel();
-		//将菜单面板添加到窗体中
+		//将棋盘面板添加到窗体中
 		this.add(checkerboardPanel);
 		
 		//使当前窗体显示

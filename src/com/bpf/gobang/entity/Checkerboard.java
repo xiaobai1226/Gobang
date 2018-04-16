@@ -35,8 +35,22 @@ public class Checkerboard {
     private int CHECKERBOARD_WIDTH;
     //棋盘窗体高度
     private int CHECKERBOARD_HEIGHT;  
+    //棋盘边界宽度
+    private int CHECKERBOARD_BORDER_WIDTH;  
     //棋盘图片位置
     private String CHECKERBOARD_IMAGE_URL;  
+    //光标图片位置
+    private String CURSOR_IMAGE_URL; 
+    //黑色棋子图片位置
+    private String BLACK_CHESS_PIECES_IMAGE_URL; 
+    //白色棋子图片位置
+    private String WHITE_CHESS_PIECES_IMAGE_URL; 
+    //棋盘落子情况 0为无子，1为黑子，2为白子
+    private int[][] checkerboardSituation;
+    //光标位置
+    private int[] cursor_position;
+    //当前棋子 false是黑色，true是白色
+    private boolean current_chess_piece;
     
     public int getCHECKERBOARD_WIDTH() {
 		return CHECKERBOARD_WIDTH;
@@ -46,8 +60,40 @@ public class Checkerboard {
 		return CHECKERBOARD_HEIGHT;
 	}
 
+	public int getCHECKERBOARD_BORDER_WIDTH() {
+		return CHECKERBOARD_BORDER_WIDTH;
+	}
+
 	public String getCHECKERBOARD_IMAGE_URL() {
 		return CHECKERBOARD_IMAGE_URL;
+	}
+	
+	public String getCURSOR_IMAGE_URL() {
+		return CURSOR_IMAGE_URL;
+	}
+
+	public int[][] getCheckerboardSituation() {
+		return checkerboardSituation;
+	}
+
+	public int[] getCursor_position() {
+		return cursor_position;
+	}
+	
+	public boolean getCurrent_chess_piece() {
+		return current_chess_piece;
+	}
+
+	public void setCurrent_chess_piece(boolean current_chess_piece) {
+		this.current_chess_piece = current_chess_piece;
+	}
+
+	public String getBLACK_CHESS_PIECES_IMAGE_URL() {
+		return BLACK_CHESS_PIECES_IMAGE_URL;
+	}
+
+	public String getWHITE_CHESS_PIECES_IMAGE_URL() {
+		return WHITE_CHESS_PIECES_IMAGE_URL;
 	}
 
 	/**
@@ -61,13 +107,15 @@ public class Checkerboard {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			checkerboardSituation = new int[19][19];
+			cursor_position = new int[2];
 			CHECKERBOARD_WIDTH = Integer.valueOf(properties.getProperty("checkerboard_width"));
 			CHECKERBOARD_HEIGHT = Integer.valueOf(properties.getProperty("checkerboard_height"));
+			CHECKERBOARD_BORDER_WIDTH = Integer.valueOf(properties.getProperty("checkerboard_border_width"));
 			CHECKERBOARD_IMAGE_URL = properties.getProperty("checkerboard_image_url");
-//			PLAY_ONLINE_IMAGE_URL = properties.getProperty("play_online_image_url");
-//			PLAYER_VS_COMPUTER_IMAGE_URL = properties.getProperty("player_vs_computer_image_url");
-//			TWO_PLAYER_GAME_IMAGE_URL = properties.getProperty("two_player_game_image_url");
-//			ABOUT_IMAGE_URL = properties.getProperty("about_image_url");
+			CURSOR_IMAGE_URL = properties.getProperty("cursor_image_url");
+			BLACK_CHESS_PIECES_IMAGE_URL = properties.getProperty("black_chess_pieces_image_url");
+			WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("white_chess_pieces_image_url");
 //		    RECORD_IMAGE_URL = properties.getProperty("record_image_url");
 //		    BIG_RECORD_IMAGE_URL = properties.getProperty("big_record_image_url");
 //		    GAME_RULES_IMAGE_URL = properties.getProperty("game_rules_image_url");
