@@ -45,6 +45,10 @@ public class Checkerboard {
     private String BLACK_CHESS_PIECES_IMAGE_URL; 
     //白色棋子图片位置
     private String WHITE_CHESS_PIECES_IMAGE_URL; 
+    //黑色棋子图片(大)位置
+    private String BIG_BLACK_CHESS_PIECES_IMAGE_URL; 
+    //白色棋子图片(大)位置
+    private String BIG_WHITE_CHESS_PIECES_IMAGE_URL; 
     //棋盘落子情况 0为无子，1为黑子，2为白子
     private int[][] checkerboardSituation;
     //光标位置
@@ -96,6 +100,14 @@ public class Checkerboard {
 		return WHITE_CHESS_PIECES_IMAGE_URL;
 	}
 
+	public String getBIG_BLACK_CHESS_PIECES_IMAGE_URL() {
+		return BIG_BLACK_CHESS_PIECES_IMAGE_URL;
+	}
+
+	public String getBIG_WHITE_CHESS_PIECES_IMAGE_URL() {
+		return BIG_WHITE_CHESS_PIECES_IMAGE_URL;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -116,8 +128,8 @@ public class Checkerboard {
 			CURSOR_IMAGE_URL = properties.getProperty("cursor_image_url");
 			BLACK_CHESS_PIECES_IMAGE_URL = properties.getProperty("black_chess_pieces_image_url");
 			WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("white_chess_pieces_image_url");
-//		    RECORD_IMAGE_URL = properties.getProperty("record_image_url");
-//		    BIG_RECORD_IMAGE_URL = properties.getProperty("big_record_image_url");
+			BIG_BLACK_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_black_chess_pieces_image_url");
+			BIG_WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_white_chess_pieces_image_url");
 //		    GAME_RULES_IMAGE_URL = properties.getProperty("game_rules_image_url");
 //		    BIG_GAME_RULES_IMAGE_URL = properties.getProperty("big_game_rules_image_url");
 			

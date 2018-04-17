@@ -47,6 +47,7 @@ public class CheckerboardPanel extends JPanel{
     Checkerboard checkerboard = Checkerboard.getCheckerboard();
     
     public void init() {
+    	this.setBounds(0, 0, 800, 800);
     	this.addMouseListener(new CheckerboardMouseListener());
     	this.addMouseMotionListener(new CheckerboardMouseMotionListener());
     }
@@ -62,7 +63,10 @@ public class CheckerboardPanel extends JPanel{
 			graphics.drawImage(ImageIO.read(new File(checkerboard.getCHECKERBOARD_IMAGE_URL())), 0, 0, this);
 			//添加光标
 			//只有在棋盘范围内时，才显示此选择框
-			if(checkerboard.getCursor_position()[0] != -1 && checkerboard.getCursor_position()[1] != -1) {
+			int x = CheckerboardAlgorithm.calculationIndexByCoordinate(checkerboard.getCursor_position()[0]);
+			int y = CheckerboardAlgorithm.calculationIndexByCoordinate(checkerboard.getCursor_position()[1]);
+			int num = (x == y && y == -1) ? 0 : checkerboard.getCheckerboardSituation()[x][y];
+			if(num == 0 && checkerboard.getCursor_position()[0] != -1 && checkerboard.getCursor_position()[1] != -1) {
 				cursorX = CheckerboardAlgorithm.calculationPositionByCoordinate(checkerboard.getCursor_position()[0]);
 				cursorY = CheckerboardAlgorithm.calculationPositionByCoordinate(checkerboard.getCursor_position()[1]);
 				

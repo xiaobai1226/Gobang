@@ -1,5 +1,8 @@
 package com.bpf.gobang.frame;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -7,6 +10,7 @@ import com.bpf.gobang.algorithm.CommonAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.panel.CheckerboardPanel;
+import com.bpf.gobang.panel.ToolbarPanel;
 
 /**
  * <p>Title: CheckerboardFrame</p>
@@ -53,11 +57,18 @@ public class CheckerboardFrame extends JFrame{
 		this.setBounds(checkerboardCoordinate[0], checkerboardCoordinate[1], checkerboard_width, checkerboard_height);
 		//设置关闭窗体后，程序结束
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//取消该窗体布局
+		this.setLayout(null);
 		
-		//新建一个菜单面板
+		//新建一个棋盘面板
 		CheckerboardPanel checkerboardPanel = CheckerboardPanel.getCheckerboardPanel();
+		//新建一个工具面板
+		ToolbarPanel toolbarPanel = ToolbarPanel.getToolbarPanel();
+		
 		//将棋盘面板添加到窗体中
 		this.add(checkerboardPanel);
+		//将工具面板添加到窗体中
+		this.add(toolbarPanel);
 		
 		//使当前窗体显示
 		this.setVisible(true);
