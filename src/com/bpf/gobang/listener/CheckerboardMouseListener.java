@@ -30,23 +30,24 @@ public class CheckerboardMouseListener extends MouseAdapter{
 			i = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getX());
 			j = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getY());
 			
-			//存储当前点击点在数组中的索引
-			int[] chessRecord = new int[2];
-			chessRecord[0] = i;
-			chessRecord[1] = j;
-			//将下子位置添加进下子记录中
-			checkerboard.getChessRecord().add(chessRecord);
-			
 			//获取当前棋子颜色信息，false为黑色，true为白色
 			current_chess_piece = checkerboard.getCurrent_chess_piece();
 			
 			//判断当前棋子颜色与当前位置是否有棋子，如果为黑色，数组相应位置置为1，如果是白色，数组相应位置置为2
 			if(checkerboard.getCheckerboardSituation()[i][j] == 0) {
+				
 				if(current_chess_piece) {
 					checkerboard.getCheckerboardSituation()[i][j] = 2;
 				}else {
 					checkerboard.getCheckerboardSituation()[i][j] = 1;
 				}
+				
+				//存储当前点击点在数组中的索引
+				int[] chessRecord = new int[2];
+				chessRecord[0] = i;
+				chessRecord[1] = j;
+				//将下子位置添加进下子记录中
+				checkerboard.getChessRecord().add(chessRecord);
 				
 				//将当前棋子颜色置为另一种
 				Checkerboard.getCheckerboard().setCurrent_chess_piece(!current_chess_piece);

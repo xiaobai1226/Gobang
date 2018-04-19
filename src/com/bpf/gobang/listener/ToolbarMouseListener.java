@@ -18,14 +18,11 @@ public class ToolbarMouseListener extends MouseAdapter{
 	public void mouseClicked(MouseEvent e) {
 		//当前状态为true才可以操作
 		if(Common.getCommon().getCurrent_status()) {
-			//判断光标在哪个按钮上
-			if(e.getX() >= 15 && e.getX() <= 75) {
-				//点击返回按钮
-				if(e.getY() >= 100 && e.getY() <= 162) {
-					//点击此按钮关闭棋盘窗体，打开菜单窗体
-					CheckerboardFrame.getCheckerboardFrame().dispose();
-					MenuFrame.getMenuFrame().setVisible(true);;
-				}
+			//点击返回按钮
+			if(toolbar.getCURRENT_BUTTON().equals("back")) {
+				//点击此按钮关闭棋盘窗体，打开菜单窗体
+				CheckerboardFrame.getCheckerboardFrame().dispose();
+				MenuFrame.getMenuFrame().setVisible(true);;
 			}
 			
 			//点击重玩按钮
