@@ -41,6 +41,10 @@ public class CheckerboardFrame extends JFrame{
     Common common = Common.getCommon();
     Checkerboard checkerboard = Checkerboard.getCheckerboard();
     
+    /**
+     * <p>Title: init</p>
+     * <p>Description: 该窗体的初始化方法</p>
+     */
     public void init() {
     	//获得棋盘窗体宽度
 		int checkerboard_width = checkerboard.getCHECKERBOARD_WIDTH();

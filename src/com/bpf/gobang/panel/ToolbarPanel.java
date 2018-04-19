@@ -8,10 +8,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
+import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.entity.Toolbar;
 import com.bpf.gobang.listener.CheckerboardMouseListener;
 import com.bpf.gobang.listener.CheckerboardMouseMotionListener;
+import com.bpf.gobang.listener.ToolbarMouseListener;
+import com.bpf.gobang.listener.ToolbarMouseMotionListener;
 
 /**
  * <p>Title: ToolbarPanel</p>
@@ -40,11 +43,18 @@ public class ToolbarPanel extends JPanel{
     }
     
     Checkerboard checkerboard = Checkerboard.getCheckerboard();
+    Toolbar toolbar = Toolbar.getToolbar();
     
+    /**
+     * <p>Title: init</p>
+     * <p>Description: 该面板的初始化方法</p>
+     */
     public void init() {
+    	//设置此面板出现的位置以及大小
     	this.setBounds(800, 0, 100, 800);
-//    	this.addMouseListener(new CheckerboardMouseListener());
-//    	this.addMouseMotionListener(new CheckerboardMouseMotionListener());
+    	//加入监听器
+		this.addMouseListener(new ToolbarMouseListener());
+    	this.addMouseMotionListener(new ToolbarMouseMotionListener());
     }
 
 	@Override
@@ -54,14 +64,35 @@ public class ToolbarPanel extends JPanel{
 			BufferedImage bufferImage = new BufferedImage(800,830,BufferedImage.TYPE_INT_ARGB);
 			Graphics graphics = bufferImage.createGraphics();
 			
-			//添加棋盘图片
-//			graphics.drawImage(ImageIO.read(new File(checkerboard.getCHECKERBOARD_IMAGE_URL())), 0, 0, this);
+			//添加工具栏背景图片
+			graphics.drawImage(ImageIO.read(new File(toolbar.getTOOLBAR_BACKGROUND_IMAGE_URL())), 0, 0, this);
 			
-			//添加棋盘图片
+			//添加当前棋子提示图片
 			if(checkerboard.getCurrent_chess_piece()) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 0, 0, this);
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 12, 15, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 0, 0, this);
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 12, 15, this);
+			}
+			
+			//添加返回按钮图片
+			if(toolbar.getCURRENT_BUTTON().equals("back")) {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_BACK_IMAGE_URL())), 15, 97, this);
+			}else {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBACK_IMAGE_URL())), 18, 100, this);
+			}
+			
+			//添加重玩按钮图片
+			if(toolbar.getCURRENT_BUTTON().equals("restart")) {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_RESTART_IMAGE_URL())), 17, 197, this);
+			}else {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 200, this);
+			}
+			
+			//添加重玩按钮图片
+			if(toolbar.getCURRENT_BUTTON().equals("regret")) {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 297, this);
+			}else {
+				graphics.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 300, this);
 			}
 			
 			g.drawImage(bufferImage, 0, 0, this);

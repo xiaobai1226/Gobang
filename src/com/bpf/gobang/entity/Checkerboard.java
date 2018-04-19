@@ -3,6 +3,8 @@ package com.bpf.gobang.entity;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -49,8 +51,12 @@ public class Checkerboard {
     private String BIG_BLACK_CHESS_PIECES_IMAGE_URL; 
     //白色棋子图片(大)位置
     private String BIG_WHITE_CHESS_PIECES_IMAGE_URL; 
+    //红点图片位置
+    private String POINT_IMAGE_URL; 
     //棋盘落子情况 0为无子，1为黑子，2为白子
     private int[][] checkerboardSituation;
+    //下子点记录
+    private List<int[]> chessRecord;
     //光标位置
     private int[] cursor_position;
     //当前棋子 false是黑色，true是白色
@@ -76,8 +82,16 @@ public class Checkerboard {
 		return CURSOR_IMAGE_URL;
 	}
 
+	public String getPOINT_IMAGE_URL() {
+		return POINT_IMAGE_URL;
+	}
+
 	public int[][] getCheckerboardSituation() {
 		return checkerboardSituation;
+	}
+
+	public void setCheckerboardSituation(int[][] checkerboardSituation) {
+		this.checkerboardSituation = checkerboardSituation;
 	}
 
 	public int[] getCursor_position() {
@@ -108,6 +122,14 @@ public class Checkerboard {
 		return BIG_WHITE_CHESS_PIECES_IMAGE_URL;
 	}
 
+	public List<int[]> getChessRecord() {
+		return chessRecord;
+	}
+
+	public void setChessRecord(List<int[]> chessRecord) {
+		this.chessRecord = chessRecord;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -119,6 +141,7 @@ public class Checkerboard {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			chessRecord = new ArrayList<int[]>();
 			checkerboardSituation = new int[19][19];
 			cursor_position = new int[2];
 			CHECKERBOARD_WIDTH = Integer.valueOf(properties.getProperty("checkerboard_width"));
@@ -130,7 +153,7 @@ public class Checkerboard {
 			WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("white_chess_pieces_image_url");
 			BIG_BLACK_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_black_chess_pieces_image_url");
 			BIG_WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_white_chess_pieces_image_url");
-//		    GAME_RULES_IMAGE_URL = properties.getProperty("game_rules_image_url");
+			POINT_IMAGE_URL = properties.getProperty("point_image_url");
 //		    BIG_GAME_RULES_IMAGE_URL = properties.getProperty("big_game_rules_image_url");
 			
 		}catch(Exception e) {

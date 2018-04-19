@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
+import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.listener.CheckerboardMouseListener;
 import com.bpf.gobang.listener.CheckerboardMouseMotionListener;
 
@@ -46,10 +47,16 @@ public class CheckerboardPanel extends JPanel{
     
     Checkerboard checkerboard = Checkerboard.getCheckerboard();
     
+    /**
+     * <p>Title: init</p>
+     * <p>Description: 该面板的初始化方法</p>
+     */
     public void init() {
+    	//设置此面板出现的位置以及大小
     	this.setBounds(0, 0, 800, 800);
-    	this.addMouseListener(new CheckerboardMouseListener());
-    	this.addMouseMotionListener(new CheckerboardMouseMotionListener());
+    	//加入监听器
+		this.addMouseListener(new CheckerboardMouseListener());
+		this.addMouseMotionListener(new CheckerboardMouseMotionListener());
     }
 
 	@Override
@@ -90,6 +97,17 @@ public class CheckerboardPanel extends JPanel{
 								this);
 					}
 				}
+			}
+			
+			//在最后下的棋子上画上一个红点
+			int length = checkerboard.getChessRecord().size();
+			if(length > 0) {
+				int lastI = checkerboard.getChessRecord().get(length - 1)[0];
+				int lastJ = checkerboard.getChessRecord().get(length - 1)[1];
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getPOINT_IMAGE_URL())), //红点图片
+						CheckerboardAlgorithm.calculationCoordinateByIndex(lastI) + 13, //红点横坐标
+						CheckerboardAlgorithm.calculationCoordinateByIndex(lastJ) + 13, //红点纵坐标
+						this);
 			}
 			
 			g.drawImage(bufferImage, 0, 0, this);

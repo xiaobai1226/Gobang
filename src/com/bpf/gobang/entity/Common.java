@@ -36,8 +36,10 @@ public class Common {
 	private Integer SCREEN_WIDTH = null;
 	//屏幕高度
 	private Integer SCREEN_HEIGHT = null;
-	
+	//图标路径
 	private String ICON_IMAGE_URL = null;
+	//当前界面按钮状态
+	private boolean current_status;
 	
 	public int getSCREEN_WIDTH() {
 		return SCREEN_WIDTH;
@@ -48,6 +50,14 @@ public class Common {
 	
 	public String getICON_IMAGE_URL() {
 		return ICON_IMAGE_URL;
+	}
+
+	public boolean getCurrent_status() {
+		return current_status;
+	}
+
+	public void setCurrent_status(boolean current_status) {
+		this.current_status = current_status;
 	}
 
 	/**
@@ -61,6 +71,7 @@ public class Common {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			current_status = true;
 			SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 			SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 			ICON_IMAGE_URL = properties.getProperty("icon_image_url");

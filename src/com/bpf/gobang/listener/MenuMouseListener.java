@@ -31,7 +31,7 @@ public class MenuMouseListener extends MouseAdapter{
 			else if(e.getY() >= 470 && e.getY() <= 525){
 				//点击此按钮关闭菜单窗体，打开棋盘窗体
 				MenuFrame.getMenuFrame().dispose();
-				CheckerboardFrame.getCheckerboardFrame();
+				CheckerboardFrame.getCheckerboardFrame().setVisible(true);
 			}
 			//点击关于按钮
 			else if(e.getY() >= 580 && e.getY() <= 635){
