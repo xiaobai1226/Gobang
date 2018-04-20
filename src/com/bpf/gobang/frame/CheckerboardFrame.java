@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import com.bpf.gobang.algorithm.CommonAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.function.TimerFunction;
 import com.bpf.gobang.panel.CheckerboardPanel;
 import com.bpf.gobang.panel.ToolbarPanel;
 

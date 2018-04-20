@@ -1,5 +1,7 @@
 package com.bpf.gobang.panel;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -69,30 +71,39 @@ public class ToolbarPanel extends JPanel{
 			
 			//添加当前棋子提示图片
 			if(checkerboard.getCurrent_chess_piece()) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 12, 15, this);
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 12, 15, this);
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
 			}
+			
+			int gameTime = checkerboard.getGameTime();
+			
+			String minute = gameTime/60 < 10 ? "0" + (gameTime/60) : "" + (gameTime/60);
+			String second = gameTime%60 < 10 ? "0" + (gameTime%60) : "" + (gameTime%60);
+			
+			graphics.setFont(new Font("Algerian",Font.BOLD,32));
+			graphics.setColor(Color.BLACK);
+			graphics.drawString(minute + ":" + second, 0, 110);
 			
 			//添加返回按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("back")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_BACK_IMAGE_URL())), 15, 97, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_BACK_IMAGE_URL())), 15, 137, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBACK_IMAGE_URL())), 18, 100, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBACK_IMAGE_URL())), 18, 140, this);
 			}
 			
 			//添加重玩按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("restart")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_RESTART_IMAGE_URL())), 17, 197, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_RESTART_IMAGE_URL())), 17, 237, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 200, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 240, this);
 			}
 			
 			//添加重玩按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("regret")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 297, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 337, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 300, this);
+				graphics.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 340, this);
 			}
 			
 			g.drawImage(bufferImage, 0, 0, this);

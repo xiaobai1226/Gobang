@@ -61,8 +61,12 @@ public class Checkerboard {
     private int[] cursor_position;
     //当前棋子 false是黑色，true是白色
     private boolean current_chess_piece;
-    
-    public int getCHECKERBOARD_WIDTH() {
+    //游戏时间
+    private int gameTime;
+    //计时器线程是否运行标志位
+    private boolean timerRun;
+
+	public int getCHECKERBOARD_WIDTH() {
 		return CHECKERBOARD_WIDTH;
 	}
 
@@ -130,6 +134,22 @@ public class Checkerboard {
 		this.chessRecord = chessRecord;
 	}
 
+	public int getGameTime() {
+		return gameTime;
+	}
+
+	public void setGameTime(int gameTime) {
+		this.gameTime = gameTime;
+	}
+	
+	public boolean getTimerRun() {
+		return timerRun;
+	}
+
+	public void setTimerRun(boolean timerRun) {
+		this.timerRun = timerRun;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -141,6 +161,8 @@ public class Checkerboard {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			timerRun = true;
+			gameTime = 0;
 			chessRecord = new ArrayList<int[]>();
 			checkerboardSituation = new int[19][19];
 			cursor_position = new int[2];
