@@ -58,8 +58,21 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				if(CheckerboardAlgorithm.judge(i,j)) {
 					Common.getCommon().setCurrent_status(false);
 					checkerboard.setTimerRun(false);
-					
+					//存储胜利方
+					if(current_chess_piece) {
+						checkerboard.setGame_result(2);
+					}else {
+						checkerboard.setGame_result(1);
+					}
+					//执行五子连珠闪烁
 					CheckerboardFunction.connectedPiecesFlash();
+				}else if(Checkerboard.getCheckerboard().getChessRecord().size() == 19*19){
+					Common.getCommon().setCurrent_status(false);
+					checkerboard.setTimerRun(false);
+					//存储比赛结果为和棋
+					checkerboard.setGame_result(0);
+					//增加平局面板
+					CheckerboardFunction.addWinPanel();
 				}
 			}
 		}

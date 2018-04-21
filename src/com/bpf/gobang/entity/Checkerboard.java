@@ -62,6 +62,8 @@ public class Checkerboard {
     private String BLACK_WIN_IMAGE_URL;
     //白色棋子胜利图片
     private String WHITE_WIN_IMAGE_URL;
+    //和棋图片
+    private String DEUCE_IMAGE_URL;
     //再来一局按钮图片
     private String ANOTHER_GAME_IMAGE_URL;
     //返回菜单按钮图片
@@ -82,6 +84,8 @@ public class Checkerboard {
     private int[] cursor_position;
     //当前棋子 false是黑色，true是白色
     private boolean current_chess_piece;
+    //游戏结果 0为和棋，1为黑棋胜，2为白棋胜
+    private int game_result;
     //游戏时间
     private int gameTime;
     //计时器线程是否运行标志位
@@ -203,6 +207,18 @@ public class Checkerboard {
 		this.chessConnectedRecord = chessConnectedRecord;
 	}
 
+	public String getDEUCE_IMAGE_URL() {
+		return DEUCE_IMAGE_URL;
+	}
+
+	public int getGame_result() {
+		return game_result;
+	}
+
+	public void setGame_result(int game_result) {
+		this.game_result = game_result;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -231,6 +247,7 @@ public class Checkerboard {
 			POINT_IMAGE_URL = properties.getProperty("point_image_url");
 			BLACK_WIN_IMAGE_URL = properties.getProperty("black_win_image_url");
 			WHITE_WIN_IMAGE_URL = properties.getProperty("white_win_image_url");
+			DEUCE_IMAGE_URL = properties.getProperty("deuce_image_url");
 			ANOTHER_GAME_IMAGE_URL = properties.getProperty("another_game_image_url");
 			BACK_MENU_IMAGE_URL = properties.getProperty("back_menu_image_url");
 			BIG_ANOTHER_GAME_IMAGE_URL = properties.getProperty("big_another_game_image_url");

@@ -64,16 +64,22 @@ public class WinPanel extends JPanel{
 			Graphics graphics = bufferImage.createGraphics();
 			
 			//添加棋盘图片
-			if(checkerboard.getCurrent_chess_piece()) {
+			if(checkerboard.getGame_result() == 1) {
 				graphics.drawImage(ImageIO.read(new File(checkerboard.getBLACK_WIN_IMAGE_URL())), 0, 0, this);
-			}else {
+			}else if(checkerboard.getGame_result() == 2){
 				graphics.drawImage(ImageIO.read(new File(checkerboard.getWHITE_WIN_IMAGE_URL())), 0, 0, this);
+			}else if(checkerboard.getGame_result() == 0) {
+				graphics.drawImage(ImageIO.read(new File(checkerboard.getDEUCE_IMAGE_URL())), 0, 0, this);
 			}
 			//添加游戏时间与胜方游戏步数
 			graphics.setFont(new Font("黑体",Font.BOLD,30));
 			graphics.setColor(Color.BLACK);
 			graphics.drawString(CommonAlgorithm.timeFormat(), 490, 418);
-			graphics.drawString(String.valueOf(CommonAlgorithm.stepCount()), 490, 459);
+			if(checkerboard.getGame_result() == 0) {
+				graphics.drawString(String.valueOf(19*19), 490, 459);
+			}else {
+				graphics.drawString(String.valueOf(CommonAlgorithm.stepCount()), 490, 459);
+			}
 			
 			
 			if(Toolbar.getToolbar().getCURRENT_BUTTON().equals("another_game")) {
