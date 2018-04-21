@@ -1,5 +1,6 @@
 package com.bpf.gobang.algorithm;
 
+import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 
 /**
@@ -28,5 +29,32 @@ public class CommonAlgorithm {
 		frameLocation[1] = (common.getSCREEN_HEIGHT() - frameHeight) / 2;
 		
 		return frameLocation;
+	}
+	
+	/**
+	 * <p>Title: timeFormat</p>
+	 * <p>Description: 将描述转换成相应格式的字符串</p>
+	 * @return
+	 */
+	public static String timeFormat() {
+		//获取游戏时间
+		int gameTime = Checkerboard.getCheckerboard().getGameTime();
+		//进行格式转换
+		String minute = gameTime/60 < 10 ? "0" + (gameTime/60) : "" + (gameTime/60);
+		String second = gameTime%60 < 10 ? "0" + (gameTime%60) : "" + (gameTime%60);
+		
+		return minute + ":" + second;
+	}
+	
+	/**
+	 * <p>Title: stepCount</p>
+	 * <p>Description: 计算胜利方所走棋数</p>
+	 * @return
+	 */
+	public static int stepCount() {
+		//获取双方总步数
+		int totalStepCount = Checkerboard.getCheckerboard().getChessRecord().size();
+		
+		return totalStepCount % 2 == 0 ? totalStepCount / 2 : (totalStepCount - 1) / 2 + 1;
 	}
 }

@@ -1,4 +1,4 @@
-package com.bpf.gobang.function;
+package com.bpf.gobang.function.runnable;
 
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
@@ -11,7 +11,7 @@ import com.bpf.gobang.frame.CheckerboardFrame;
  * @date	2018年4月19日下午10:22:32
  * @version 1.0.0
  */
-public class TimerFunction implements Runnable{
+public class TimerRunnable implements Runnable{
 	Checkerboard checkerboard = Checkerboard.getCheckerboard();
 	 
 	@Override

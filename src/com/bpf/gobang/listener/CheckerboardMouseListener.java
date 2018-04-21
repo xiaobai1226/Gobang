@@ -3,12 +3,12 @@ package com.bpf.gobang.listener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JOptionPane;
 
 import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.frame.CheckerboardFrame;
+import com.bpf.gobang.function.CheckerboardFunction;
 
 public class CheckerboardMouseListener extends MouseAdapter{
 	//获取棋盘通用属性
@@ -56,7 +56,10 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				CheckerboardFrame.getCheckerboardFrame().repaint();
 				
 				if(CheckerboardAlgorithm.judge(i,j)) {
-					JOptionPane.showMessageDialog(CheckerboardFrame.getCheckerboardFrame(), current_chess_piece ? "白棋胜利,游戏结束!!!" : "黑棋胜利,游戏结束!!!");
+					Common.getCommon().setCurrent_status(false);
+					checkerboard.setTimerRun(false);
+					
+					CheckerboardFunction.connectedPiecesFlash();
 				}
 			}
 		}

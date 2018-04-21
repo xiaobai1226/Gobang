@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import com.bpf.gobang.algorithm.CommonAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
@@ -76,14 +77,9 @@ public class ToolbarPanel extends JPanel{
 				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
 			}
 			
-			int gameTime = checkerboard.getGameTime();
-			
-			String minute = gameTime/60 < 10 ? "0" + (gameTime/60) : "" + (gameTime/60);
-			String second = gameTime%60 < 10 ? "0" + (gameTime%60) : "" + (gameTime%60);
-			
 			graphics.setFont(new Font("Algerian",Font.BOLD,32));
 			graphics.setColor(Color.BLACK);
-			graphics.drawString(minute + ":" + second, 0, 110);
+			graphics.drawString(CommonAlgorithm.timeFormat(), 0, 110);
 			
 			//添加返回按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("back")) {

@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.frame.CheckerboardFrame;
 import com.bpf.gobang.frame.MenuFrame;
-import com.bpf.gobang.function.TimerFunction;
+import com.bpf.gobang.function.runnable.TimerRunnable;
 
 public class MenuMouseListener extends MouseAdapter{
 	@Override
@@ -34,9 +34,10 @@ public class MenuMouseListener extends MouseAdapter{
 				//将计时器线程运行标志位打开
 				Checkerboard.getCheckerboard().setTimerRun(true);
 				//创建并开启计时器线程
-				Thread timer = new Thread(new TimerFunction());
+				Thread timer = new Thread(new TimerRunnable());
 				timer.start();
-				
+				//将计时器线程存储起来
+				Checkerboard.getCheckerboard().setTimerThread(timer);
 				//点击此按钮关闭菜单窗体，打开棋盘窗体
 				MenuFrame.getMenuFrame().dispose();
 				CheckerboardFrame.getCheckerboardFrame().setVisible(true);

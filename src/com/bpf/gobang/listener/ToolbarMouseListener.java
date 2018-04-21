@@ -10,6 +10,7 @@ import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
 import com.bpf.gobang.frame.CheckerboardFrame;
 import com.bpf.gobang.frame.MenuFrame;
+import com.bpf.gobang.function.CheckerboardFunction;
 
 public class ToolbarMouseListener extends MouseAdapter{
 	Toolbar toolbar = Toolbar.getToolbar();
@@ -20,25 +21,14 @@ public class ToolbarMouseListener extends MouseAdapter{
 		if(Common.getCommon().getCurrent_status()) {
 			//点击返回按钮
 			if(toolbar.getCURRENT_BUTTON().equals("back")) {
-				//关闭计时器线程
-				checkerboard.setTimerRun(false);
-				//点击此按钮关闭棋盘窗体，打开菜单窗体
-				CheckerboardFrame.getCheckerboardFrame().dispose();
-				MenuFrame.getMenuFrame().setVisible(true);;
+				//执行返回方法
+				CheckerboardFunction.backToMenu();
 			}
 			
 			//点击重玩按钮
 			if(toolbar.getCURRENT_BUTTON().equals("restart")) {
-				//清空棋盘
-				checkerboard.setCheckerboardSituation(new int[19][19]);
-				//清空棋盘下子记录
-				checkerboard.setChessRecord(new ArrayList<int[]>());
-				//当前棋子置为黑色
-				checkerboard.setCurrent_chess_piece(false);
-				//将计时器归0
-				checkerboard.setGameTime(0);
-				//重绘该窗体
-				CheckerboardFrame.getCheckerboardFrame().repaint();
+				//执行重新开始方法
+				CheckerboardFunction.restart();
 			}
 			
 			//点击悔棋按钮

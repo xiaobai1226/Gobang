@@ -1,5 +1,7 @@
 package com.bpf.gobang.algorithm;
 
+import java.util.ArrayList;
+
 import com.bpf.gobang.entity.Checkerboard;
 
 /**
@@ -89,12 +91,24 @@ public class CheckerboardAlgorithm {
 		//初始化每次遍历数组索引变化量
 		int tempI = iChange;
 		int tempJ = jChange;
+		
+		//初始化棋子连续记录
+		Checkerboard.getCheckerboard().setChessConnectedRecord(new ArrayList<int[]>());
+		//将该点记录进棋子连续记录中
+		int[] chessPosition = {i,j};
+		Checkerboard.getCheckerboard().getChessConnectedRecord().add(chessPosition);
+		
 		//循环遍历相连的点，比较颜色是否相同(向前)
 		while(i + tempI >= 0 && i + tempI < checkerboard.length
 				&& j + tempJ >= 0 && j + tempJ < checkerboard.length
 				&& checkerboard[i + tempI][j + tempJ] == color) {
 			//如果相同，连接数量加1
 			count++;
+			//将该点记录进棋子连续记录中
+			chessPosition = new int[2];
+			chessPosition[0] = i + tempI;
+		    chessPosition[1] = j + tempJ;
+			Checkerboard.getCheckerboard().getChessConnectedRecord().add(chessPosition);
 			
 			if(tempI != 0) {
 				tempI++;
@@ -115,6 +129,12 @@ public class CheckerboardAlgorithm {
 				&& j - tempJ >= 0 && j - tempJ < checkerboard.length
 				&& checkerboard[i - tempI][j - tempJ] == color) {
 			count++;
+			
+			//将该点记录进棋子连续记录中
+			chessPosition = new int[2];
+			chessPosition[0] = i - tempI;
+		    chessPosition[1] = j - tempJ;
+			Checkerboard.getCheckerboard().getChessConnectedRecord().add(chessPosition);
 			
 			if(tempI != 0) {
 				tempI++;

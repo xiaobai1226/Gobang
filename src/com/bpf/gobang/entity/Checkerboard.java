@@ -32,8 +32,15 @@ public class Checkerboard {
         }
         return checkerboard;
     }
-    
-    //棋盘窗体宽度
+    private Thread timerThread;
+	public Thread getTimerThread() {
+		return timerThread;
+	}
+
+	public void setTimerThread(Thread timerThread) {
+		this.timerThread = timerThread;
+	}
+	//棋盘窗体宽度
     private int CHECKERBOARD_WIDTH;
     //棋盘窗体高度
     private int CHECKERBOARD_HEIGHT;  
@@ -51,12 +58,26 @@ public class Checkerboard {
     private String BIG_BLACK_CHESS_PIECES_IMAGE_URL; 
     //白色棋子图片(大)位置
     private String BIG_WHITE_CHESS_PIECES_IMAGE_URL; 
+    //黑色棋子胜利图片
+    private String BLACK_WIN_IMAGE_URL;
+    //白色棋子胜利图片
+    private String WHITE_WIN_IMAGE_URL;
+    //再来一局按钮图片
+    private String ANOTHER_GAME_IMAGE_URL;
+    //返回菜单按钮图片
+    private String BACK_MENU_IMAGE_URL;
+    //再来一局按钮图片（大）
+    private String BIG_ANOTHER_GAME_IMAGE_URL;
+    //返回菜单按钮图片（大）
+    private String BIG_BACK_MENU_IMAGE_URL;
     //红点图片位置
     private String POINT_IMAGE_URL; 
     //棋盘落子情况 0为无子，1为黑子，2为白子
     private int[][] checkerboardSituation;
     //下子点记录
     private List<int[]> chessRecord;
+    //下子相连点记录
+    private List<int[]> chessConnectedRecord;
     //光标位置
     private int[] cursor_position;
     //当前棋子 false是黑色，true是白色
@@ -125,6 +146,30 @@ public class Checkerboard {
 	public String getBIG_WHITE_CHESS_PIECES_IMAGE_URL() {
 		return BIG_WHITE_CHESS_PIECES_IMAGE_URL;
 	}
+	
+	public String getBLACK_WIN_IMAGE_URL() {
+		return BLACK_WIN_IMAGE_URL;
+	}
+
+	public String getWHITE_WIN_IMAGE_URL() {
+		return WHITE_WIN_IMAGE_URL;
+	}
+
+	public String getANOTHER_GAME_IMAGE_URL() {
+		return ANOTHER_GAME_IMAGE_URL;
+	}
+
+	public String getBACK_MENU_IMAGE_URL() {
+		return BACK_MENU_IMAGE_URL;
+	}
+
+	public String getBIG_ANOTHER_GAME_IMAGE_URL() {
+		return BIG_ANOTHER_GAME_IMAGE_URL;
+	}
+
+	public String getBIG_BACK_MENU_IMAGE_URL() {
+		return BIG_BACK_MENU_IMAGE_URL;
+	}
 
 	public List<int[]> getChessRecord() {
 		return chessRecord;
@@ -148,6 +193,14 @@ public class Checkerboard {
 
 	public void setTimerRun(boolean timerRun) {
 		this.timerRun = timerRun;
+	}
+
+	public List<int[]> getChessConnectedRecord() {
+		return chessConnectedRecord;
+	}
+
+	public void setChessConnectedRecord(List<int[]> chessConnectedRecord) {
+		this.chessConnectedRecord = chessConnectedRecord;
 	}
 
 	/**
@@ -176,7 +229,12 @@ public class Checkerboard {
 			BIG_BLACK_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_black_chess_pieces_image_url");
 			BIG_WHITE_CHESS_PIECES_IMAGE_URL = properties.getProperty("big_white_chess_pieces_image_url");
 			POINT_IMAGE_URL = properties.getProperty("point_image_url");
-//		    BIG_GAME_RULES_IMAGE_URL = properties.getProperty("big_game_rules_image_url");
+			BLACK_WIN_IMAGE_URL = properties.getProperty("black_win_image_url");
+			WHITE_WIN_IMAGE_URL = properties.getProperty("white_win_image_url");
+			ANOTHER_GAME_IMAGE_URL = properties.getProperty("another_game_image_url");
+			BACK_MENU_IMAGE_URL = properties.getProperty("back_menu_image_url");
+			BIG_ANOTHER_GAME_IMAGE_URL = properties.getProperty("big_another_game_image_url");
+			BIG_BACK_MENU_IMAGE_URL = properties.getProperty("big_back_menu_image_url");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
