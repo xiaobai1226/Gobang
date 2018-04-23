@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.entity.Computer_vs_player;
 import com.bpf.gobang.frame.CheckerboardFrame;
 import com.bpf.gobang.frame.MenuFrame;
 import com.bpf.gobang.function.runnable.ConnectedPiecesFlashRunnable;
@@ -35,6 +36,12 @@ public class CheckerboardFunction {
 		Checkerboard.getCheckerboard().setGameTime(0);
 		//将当前状态置为true
 		Common.getCommon().setCurrent_status(true);
+		//初始化获胜组合
+		Computer_vs_player.getComputer_vs_player().initWinCombination();
+		//初始化
+		Computer_vs_player.getComputer_vs_player().setWin(new int[2][1020]);
+		//初始化玩家与电脑得分
+		Computer_vs_player.getComputer_vs_player().setScores(new int[2][19][19]);
 		//将计时器开关打开
 		Checkerboard.getCheckerboard().setTimerRun(true);
 		//获取存储的计时器线程

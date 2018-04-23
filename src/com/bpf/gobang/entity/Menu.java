@@ -54,9 +54,6 @@ public class Menu {
     //规则（大）图片位置
     private String BIG_GAME_RULES_IMAGE_URL = null;
     
-    //当前按钮
-    private String CURRENT_BUTTON;
-
 	public int getMENU_WIDTH() {
 		return MENU_WIDTH;
 	}
@@ -101,16 +98,6 @@ public class Menu {
 		return BIG_GAME_RULES_IMAGE_URL;
 	}
 
-	
-	
-	public String getCURRENT_BUTTON() {
-		return CURRENT_BUTTON;
-	}
-
-	public void setCURRENT_BUTTON(String CURRENT_BUTTON) {
-		this.CURRENT_BUTTON = CURRENT_BUTTON;
-	}
-
 	/**
 	 * <p>Title: init</p>
 	 * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -134,7 +121,6 @@ public class Menu {
 		    GAME_RULES_IMAGE_URL = properties.getProperty("game_rules_image_url");
 		    BIG_GAME_RULES_IMAGE_URL = properties.getProperty("big_game_rules_image_url");
 			
-			CURRENT_BUTTON = "";
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

@@ -41,6 +41,27 @@ public class Common {
 	//当前界面按钮状态
 	private boolean current_status;
 	
+	//当前页面
+	private String current_page;
+	//菜单页面标识
+	public static final String MENU = "menu";
+	//人机对战难度菜单页面标识
+	public static final String DIFFICULTY_MENU = "difficulty_menu";
+	//人机对战页面标识
+	public static final String COMPUTER_VS_PLAYER = "computer_vs_player";
+	//双人对弈页面标识
+	public static final String TWOPLAYER = "twoplayer";
+	
+	//当前按钮
+    private String current_button;
+	
+    //人机模式按钮标识
+    public static final String COMPUTER_VS_PLAYER_BUTTON = "computer_vs_player_button";
+    //双人对弈按钮标识
+    public static final String TWO_PLAYER_BUTTON = "two_player_button";
+	
+	
+	
 	public int getSCREEN_WIDTH() {
 		return SCREEN_WIDTH;
 	}
@@ -60,6 +81,22 @@ public class Common {
 		this.current_status = current_status;
 	}
 
+	public String getCurrent_page() {
+		return current_page;
+	}
+
+	public void setCurrent_page(String current_page) {
+		this.current_page = current_page;
+	}
+	
+	public String getCurrent_button() {
+		return current_button;
+	}
+
+	public void setCurrent_button(String current_button) {
+		this.current_button = current_button;
+	}
+
 	/**
 	 * <p>Title: init</p>
 	 * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -71,6 +108,8 @@ public class Common {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			current_button = "";
+			current_page = "menu";
 			current_status = true;
 			SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 			SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
