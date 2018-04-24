@@ -17,7 +17,7 @@ public class Robot implements ChessPlayer{
 	//存储当前棋子颜色信息，false为黑色，true为白色
 	private boolean current_chess_piece;
 	//获取棋盘通用属性
-	Checkerboard checkerboard = Checkerboard.getCheckerboard();
+	Checkerboard checkerboard = null;
 	
 	/**
 	 * <p>Title: put</p>
@@ -27,6 +27,9 @@ public class Robot implements ChessPlayer{
 	public void put(int row, int coll) {
 		//当前状态为true才可以操作
 		if(Common.getCommon().getCurrent_status()) {
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+			
 			//获取当前棋子颜色信息，false为黑色，true为白色
 			current_chess_piece = checkerboard.getCurrent_chess_piece();
 			
@@ -46,7 +49,7 @@ public class Robot implements ChessPlayer{
 				checkerboard.getChessRecord().add(chessRecord);
 				
 				//将当前棋子颜色置为另一种
-				Checkerboard.getCheckerboard().setCurrent_chess_piece(!current_chess_piece);
+				checkerboard.setCurrent_chess_piece(!current_chess_piece);
 				
 				//重绘棋盘窗体
 				CheckerboardFrame.getCheckerboardFrame().repaint();
@@ -65,7 +68,7 @@ public class Robot implements ChessPlayer{
 					CheckerboardFunction.connectedPiecesFlash();
 				}
 				//检测出和棋执行的操作
-				else if(Checkerboard.getCheckerboard().getChessRecord().size() == 19*19){
+				else if(checkerboard.getChessRecord().size() == 19*19){
 					Common.getCommon().setCurrent_status(false);
 					checkerboard.setTimerRun(false);
 					//存储比赛结果为和棋

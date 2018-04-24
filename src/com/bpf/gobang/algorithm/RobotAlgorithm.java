@@ -3,19 +3,20 @@ package com.bpf.gobang.algorithm;
 import java.util.List;
 
 import com.bpf.gobang.entity.Checkerboard;
+import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Computer_vs_player;
 
 public class RobotAlgorithm {
+	//棋盘属性
+	private Checkerboard checkerboard = null;
 	//玩家得分
 	private int[][] playerScore = null;
 	//机器人得分
 	private int[][] robotScore = null;  
 	//玩家落子点得分
-	private boolean[][][] playerTable = Computer_vs_player.getComputer_vs_player().getPlayerTable();  
+	private boolean[][][] playerTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getPlayerTable();  
 	//机器人落子点得分
-	private boolean[][][] robotTable = Computer_vs_player.getComputer_vs_player().getRobotTable(); 
-	//棋盘落子情况
-	private int[][] checkerboard = Checkerboard.getCheckerboard().getCheckerboardSituation();
+	private boolean[][][] robotTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getRobotTable(); 
 	//所有能赢的情况
 	private int[][] win = null;
 	//最佳落子点坐标
@@ -27,21 +28,24 @@ public class RobotAlgorithm {
 	 * @return
 	 */
 	public int[] bestFallingPoint() {
+		//根据当前页面选择使用的棋盘属性
+		checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 		//初始化玩家得分
-		playerScore = Computer_vs_player.getComputer_vs_player().getScores()[0];
+		playerScore = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getScores()[0];
 		//初始化机器人得分
-		robotScore = Computer_vs_player.getComputer_vs_player().getScores()[1];
+		robotScore = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getScores()[1];
 		//初始化所有能赢的情况
-		win = Computer_vs_player.getComputer_vs_player().getWin();
+		win = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getWin();
+		
 		//获取棋盘
-		int[][] checkerboard = Checkerboard.getCheckerboard().getCheckerboardSituation();
-		List<int[]> chessRecord = Checkerboard.getCheckerboard().getChessRecord();
+		int[][] boardCondition = checkerboard.getCheckerboardSituation();
+		List<int[]> chessRecord = checkerboard.getChessRecord();
 		
 		if(chessRecord.size() == 0) {
 			location[0] = 9;
 			location[1] = 9;
 		}else if(chessRecord.size() == 1) {
-			if(checkerboard[9][9] == 0) {
+			if(boardCondition[9][9] == 0) {
 				location[0] = 9;
 				location[1] = 9;
 			}else {
@@ -54,7 +58,7 @@ public class RobotAlgorithm {
 					//该坐标的玩家得分清零
 					playerScore[i][j] = 0;
 					//在还没下棋子的地方遍历
-					if(checkerboard[i][j] == 0) {
+					if(boardCondition[i][j] == 0) {
 						//遍历该棋盘可落子点上的黑子所有权值的连子情况，并给该落子点加上相应奖励分
 						for(int k = 0; k < 1020; k++) {
 							if(playerTable[i][j][k]){  
@@ -78,7 +82,7 @@ public class RobotAlgorithm {
 					//该坐标的机器人得分清零
 					robotScore[i][j] = 0;
 					//在还没下棋子的地方遍历
-					if(checkerboard[i][j] == 0) {
+					if(boardCondition[i][j] == 0) {
 						//遍历该棋盘可落子点上的白子所有权值的连子情况，并给该落子点加上相应奖励分
 						for(int k = 0; k < 1020; k++) {
 							if(robotTable[i][j][k]){  

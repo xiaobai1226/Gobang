@@ -14,6 +14,7 @@ import com.bpf.gobang.algorithm.CommonAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
+import com.bpf.gobang.entity.UniversalBoard;
 import com.bpf.gobang.listener.CheckerboardMouseListener;
 import com.bpf.gobang.listener.CheckerboardMouseMotionListener;
 import com.bpf.gobang.listener.ToolbarMouseListener;
@@ -45,8 +46,9 @@ public class ToolbarPanel extends JPanel{
         return toolbarPanel;
     }
     
-    Checkerboard checkerboard = Checkerboard.getCheckerboard();
-    Toolbar toolbar = Toolbar.getToolbar();
+    private Checkerboard checkerboard;
+    private Toolbar toolbar = Toolbar.getToolbar();
+    private UniversalBoard universalBoard = new UniversalBoard();
     
     /**
      * <p>Title: init</p>
@@ -63,46 +65,43 @@ public class ToolbarPanel extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		try {
-			//利用双缓冲技术，防止屏幕闪烁
-			BufferedImage bufferImage = new BufferedImage(800,830,BufferedImage.TYPE_INT_ARGB);
-			Graphics graphics = bufferImage.createGraphics();
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 			
 			//添加工具栏背景图片
-			graphics.drawImage(ImageIO.read(new File(toolbar.getTOOLBAR_BACKGROUND_IMAGE_URL())), 0, 0, this);
+			g.drawImage(ImageIO.read(new File(toolbar.getTOOLBAR_BACKGROUND_IMAGE_URL())), 0, 0, this);
 			
 			//添加当前棋子提示图片
 			if(checkerboard.getCurrent_chess_piece()) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBIG_WHITE_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBIG_BLACK_CHESS_PIECES_IMAGE_URL())), 15, 15, this);
 			}
 			
-			graphics.setFont(new Font("Algerian",Font.BOLD,32));
-			graphics.setColor(Color.BLACK);
-			graphics.drawString(CommonAlgorithm.timeFormat(), 0, 110);
+			g.setFont(new Font("Algerian",Font.BOLD,32));
+			g.setColor(Color.BLACK);
+			g.drawString(CommonAlgorithm.timeFormat(), 0, 110);
 			
 			//添加返回按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("back")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_BACK_IMAGE_URL())), 15, 137, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getBIG_BACK_IMAGE_URL())), 15, 137, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBACK_IMAGE_URL())), 18, 140, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getBACK_IMAGE_URL())), 18, 140, this);
 			}
 			
 			//添加重玩按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("restart")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_RESTART_IMAGE_URL())), 17, 237, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getBIG_RESTART_IMAGE_URL())), 17, 237, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 240, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 240, this);
 			}
 			
 			//添加重玩按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("regret")) {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 337, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 337, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 340, this);
+				g.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 340, this);
 			}
-			
-			g.drawImage(bufferImage, 0, 0, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

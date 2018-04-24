@@ -1,22 +1,25 @@
 package com.bpf.gobang.entity;
 
+import java.util.Hashtable;
+import java.util.Map;
+
 public class Computer_vs_player {
-	private static Computer_vs_player computer_vs_player = null;
+	private static Map<String, Computer_vs_player> computer_vs_playerMap = new Hashtable<String, Computer_vs_player>();
 	
 	private Computer_vs_player() {
 		init();
 	}
 	
 	//提供一个全局的静态方法
-    public static Computer_vs_player getComputer_vs_player(){
-        if(computer_vs_player == null){
+    public static Computer_vs_player getComputer_vs_player(String key){
+        if(computer_vs_playerMap.get(key) == null){
             synchronized(Computer_vs_player.class){
-                if(computer_vs_player == null){
-                	computer_vs_player = new Computer_vs_player();
+                if(computer_vs_playerMap.get(key) == null){
+                	computer_vs_playerMap.put(key, new Computer_vs_player());
                 }
             }
         }
-        return computer_vs_player;
+        return computer_vs_playerMap.get(key);
     }
     
     //玩家落子点获胜组合
@@ -27,6 +30,8 @@ public class Computer_vs_player {
   	private int[][] win = new int[2][1020];
   	//玩家与电脑得分
   	private int[][][] scores = new int[2][19][19];
+  	//先下子一方
+  	private boolean first_player; 
   	
 	public boolean[][][] getPlayerTable() {
 		return playerTable;
@@ -64,6 +69,14 @@ public class Computer_vs_player {
 		initWinCombination();
 	}
 	
+	public boolean isFirst_player() {
+		return first_player;
+	}
+
+	public void setFirst_player(boolean first_player) {
+		this.first_player = first_player;
+	}
+
 	public void initWinCombination() {
 		//遍历所有的五连子可能情况的权值  
         //横 

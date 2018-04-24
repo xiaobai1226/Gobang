@@ -26,32 +26,35 @@ public class CheckerboardFunction {
 	 * <p>Description: 重新开始游戏</p>
 	 */
 	public static void restart() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		
 		//清空棋盘
-		Checkerboard.getCheckerboard().setCheckerboardSituation(new int[19][19]);
+		checkerboard.setCheckerboardSituation(new int[19][19]);
 		//清空棋盘下子记录
-		Checkerboard.getCheckerboard().setChessRecord(new ArrayList<int[]>());
+		checkerboard.setChessRecord(new ArrayList<int[]>());
 		//当前棋子置为黑色
-		Checkerboard.getCheckerboard().setCurrent_chess_piece(false);
+		checkerboard.setCurrent_chess_piece(false);
 		//将计时器归0
-		Checkerboard.getCheckerboard().setGameTime(0);
+		checkerboard.setGameTime(0);
 		//将当前状态置为true
 		Common.getCommon().setCurrent_status(true);
 		//初始化获胜组合
-		Computer_vs_player.getComputer_vs_player().initWinCombination();
+		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).initWinCombination();
 		//初始化
-		Computer_vs_player.getComputer_vs_player().setWin(new int[2][1020]);
+		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).setWin(new int[2][1020]);
 		//初始化玩家与电脑得分
-		Computer_vs_player.getComputer_vs_player().setScores(new int[2][19][19]);
+		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).setScores(new int[2][19][19]);
 		//将计时器开关打开
-		Checkerboard.getCheckerboard().setTimerRun(true);
+		checkerboard.setTimerRun(true);
 		//获取存储的计时器线程
-		Thread timer = Checkerboard.getCheckerboard().getTimerThread();
+		Thread timer = checkerboard.getTimerThread();
 		if(!timer.isAlive()) {
 			//创建并开启计时器线程
 			timer = new Thread(new TimerRunnable());
 			timer.start();
 			//将计时器线程存储起来
-			Checkerboard.getCheckerboard().setTimerThread(timer);
+			checkerboard.setTimerThread(timer);
 		}
 		//将胜利面板添加到窗体中
 		CheckerboardFrame.getCheckerboardFrame().remove(WinPanel.getWinPanel());
@@ -64,8 +67,11 @@ public class CheckerboardFunction {
 	 * <p>Description: 返回到菜单</p>
 	 */
 	public static void backToMenu() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		
 		//关闭计时器线程
-		Checkerboard.getCheckerboard().setTimerRun(false);
+		checkerboard.setTimerRun(false);
 		//点击此按钮关闭棋盘窗体，打开菜单窗体
 		CheckerboardFrame.getCheckerboardFrame().dispose();
 		MenuFrame.getMenuFrame().setVisible(true);

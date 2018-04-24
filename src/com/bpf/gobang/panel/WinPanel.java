@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 
 import com.bpf.gobang.algorithm.CommonAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
+import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
+import com.bpf.gobang.entity.UniversalBoard;
 import com.bpf.gobang.listener.WinMouseListener;
 import com.bpf.gobang.listener.WinMouseMotionListener;
 
@@ -42,7 +44,8 @@ public class WinPanel extends JPanel{
         return winPanel;
     }
     
-    Checkerboard checkerboard = Checkerboard.getCheckerboard();
+    private Checkerboard checkerboard;
+    private UniversalBoard universalBoard = new UniversalBoard();
     
     /**
      * <p>Title: init</p>
@@ -59,42 +62,39 @@ public class WinPanel extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		try {
-			//利用双缓冲技术，防止屏幕闪烁
-			BufferedImage bufferImage = new BufferedImage(900,830,BufferedImage.TYPE_INT_ARGB);
-			Graphics graphics = bufferImage.createGraphics();
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 			
 			//添加棋盘图片
 			if(checkerboard.getGame_result() == 1) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBLACK_WIN_IMAGE_URL())), 0, 0, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBLACK_WIN_IMAGE_URL())), 0, 0, this);
 			}else if(checkerboard.getGame_result() == 2){
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getWHITE_WIN_IMAGE_URL())), 0, 0, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getWHITE_WIN_IMAGE_URL())), 0, 0, this);
 			}else if(checkerboard.getGame_result() == 0) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getDEUCE_IMAGE_URL())), 0, 0, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getDEUCE_IMAGE_URL())), 0, 0, this);
 			}
 			//添加游戏时间与胜方游戏步数
-			graphics.setFont(new Font("黑体",Font.BOLD,30));
-			graphics.setColor(Color.BLACK);
-			graphics.drawString(CommonAlgorithm.timeFormat(), 490, 418);
+			g.setFont(new Font("黑体",Font.BOLD,30));
+			g.setColor(Color.BLACK);
+			g.drawString(CommonAlgorithm.timeFormat(), 490, 418);
 			if(checkerboard.getGame_result() == 0) {
-				graphics.drawString(String.valueOf(19*19), 490, 459);
+				g.drawString(String.valueOf(19*19), 490, 459);
 			}else {
-				graphics.drawString(String.valueOf(CommonAlgorithm.stepCount()), 490, 459);
+				g.drawString(String.valueOf(CommonAlgorithm.stepCount()), 490, 459);
 			}
 			
 			
 			if(Toolbar.getToolbar().getCURRENT_BUTTON().equals("another_game")) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_ANOTHER_GAME_IMAGE_URL())), 285, 488, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBIG_ANOTHER_GAME_IMAGE_URL())), 285, 488, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getANOTHER_GAME_IMAGE_URL())), 290, 490, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getANOTHER_GAME_IMAGE_URL())), 290, 490, this);
 			}
 			
 			if(Toolbar.getToolbar().getCURRENT_BUTTON().equals("back_menu")) {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBIG_BACK_MENU_IMAGE_URL())), 475, 488, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBIG_BACK_MENU_IMAGE_URL())), 475, 488, this);
 			}else {
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getBACK_MENU_IMAGE_URL())), 480, 490, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getBACK_MENU_IMAGE_URL())), 480, 490, this);
 			}
-			
-			g.drawImage(bufferImage, 0, 0, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

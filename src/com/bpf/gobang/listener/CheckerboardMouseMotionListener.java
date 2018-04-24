@@ -15,13 +15,16 @@ import com.bpf.gobang.frame.CheckerboardFrame;
  * @version 1.0.0
  */
 public class CheckerboardMouseMotionListener extends MouseMotionAdapter{
-	Checkerboard checkerboard = Checkerboard.getCheckerboard();
+	Checkerboard checkerboard = null;
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		//当前状态为true才可以操作
 		if(e.getX() >= 35 && e.getX() <= 765 && e.getY() >= 35 && e.getY() <= 765
 				&& Common.getCommon().getCurrent_status()) {
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+			
 			checkerboard.getCursor_position()[0] = e.getX();
 			checkerboard.getCursor_position()[1] = e.getY();
 		}else {

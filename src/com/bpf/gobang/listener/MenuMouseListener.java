@@ -10,6 +10,7 @@ import com.bpf.gobang.frame.MenuFrame;
 import com.bpf.gobang.function.runnable.TimerRunnable;
 
 public class MenuMouseListener extends MouseAdapter{
+	private Checkerboard checkerboard;
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//判断光标在哪个按钮上
@@ -23,30 +24,39 @@ public class MenuMouseListener extends MouseAdapter{
 		
 		//点击人机对弈按钮
 		if(Common.getCommon().getCurrent_button().equals(Common.COMPUTER_VS_PLAYER_BUTTON)){
+			//将当前页面置为人机对战
+			Common.getCommon().setCurrent_page(Common.COMPUTER_VS_PLAYER);
+			
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+			
 			//将计时器线程运行标志位打开
-			Checkerboard.getCheckerboard().setTimerRun(true);
+			checkerboard.setTimerRun(true);
 			//创建并开启计时器线程
 			Thread timer = new Thread(new TimerRunnable());
 			timer.start();
 			//将计时器线程存储起来
-			Checkerboard.getCheckerboard().setTimerThread(timer);
-			//将当前页面置为人机对战
-			Common.getCommon().setCurrent_page(Common.COMPUTER_VS_PLAYER);
+			checkerboard.setTimerThread(timer);
 			//点击此按钮关闭菜单窗体，打开棋盘窗体
 			MenuFrame.getMenuFrame().dispose();
 			CheckerboardFrame.getCheckerboardFrame().setVisible(true);
 		}
 		//点击双人对弈按钮
 		else if(Common.getCommon().getCurrent_button().equals(Common.TWO_PLAYER_BUTTON)){
+			//将当前页面置为双人对弈
+			Common.getCommon().setCurrent_page(Common.TWOPLAYER);
+			
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+			
 			//将计时器线程运行标志位打开
-			Checkerboard.getCheckerboard().setTimerRun(true);
+			checkerboard.setTimerRun(true);
 			//创建并开启计时器线程
 			Thread timer = new Thread(new TimerRunnable());
 			timer.start();
 			//将计时器线程存储起来
-			Checkerboard.getCheckerboard().setTimerThread(timer);
-			//将当前页面置为双人对弈
-			Common.getCommon().setCurrent_page(Common.TWOPLAYER);
+			checkerboard.setTimerThread(timer);
+			
 			//点击此按钮关闭菜单窗体，打开棋盘窗体
 			MenuFrame.getMenuFrame().dispose();
 			CheckerboardFrame.getCheckerboardFrame().setVisible(true);

@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.bpf.gobang.entity.Checkerboard;
+import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
 import com.bpf.gobang.function.CheckerboardFunction;
 
@@ -28,8 +29,10 @@ public class WinMouseListener extends MouseAdapter{
 			CheckerboardFunction.restart();
 			//执行返回方法
 			CheckerboardFunction.backToMenu();
+			//根据当前页面选择使用的棋盘属性
+			Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 			//将计时器归0
-			Checkerboard.getCheckerboard().setGameTime(0);
+			checkerboard.setGameTime(0);
 		}
 	}
 }

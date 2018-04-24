@@ -15,67 +15,61 @@ import com.bpf.gobang.function.CheckerboardFunction;
  * @version 1.0.0
  */
 public class Player implements ChessPlayer{
-	//存储当前点击点在数组中的索引i
-	private int i;
-	//存储当前点击点在数组中的索引j
-	private int j;
 	//存储当前棋子颜色信息，false为黑色，true为白色
 	private boolean current_chess_piece;
 	//获取棋盘通用属性
-	Checkerboard checkerboard = Checkerboard.getCheckerboard();
+	Checkerboard checkerboard = null;
 	//玩家落子点得分
-	private boolean[][][] playerTable = Computer_vs_player.getComputer_vs_player().getPlayerTable();  
+	private boolean[][][] playerTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getPlayerTable();  
 	//机器人落子点得分
-	private boolean[][][] robotTable = Computer_vs_player.getComputer_vs_player().getRobotTable(); 
+	private boolean[][][] robotTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getRobotTable(); 
 	//所有能赢的情况
 	private int[][] win = null;
 
 	/**
 	 * <p>Title: put</p>
 	 * <p>Description: 下棋方法</p>
-	 * @param row  玩家所点击横坐标
-	 * @param coll 玩家所点击纵坐标
+	 * @param row  玩家所点击位置在数组中的横坐标
+	 * @param coll 玩家所点击位置在数组中的横坐标
 	 * @see com.bpf.gobang.role.ChessPlayer#put(int, int)
 	 */
 	@Override
 	public void put(int row, int coll) {
 		//只有在规定范围内点击，才有效
 		//当前状态为true才可以操作
-		if(row >= 35 && row <= 765 && coll >= 35 && coll <= 765
-				&& Common.getCommon().getCurrent_status()) {
-			//根据算法计算出当前点击点在数组中的索引
-			i = CheckerboardAlgorithm.calculationIndexByCoordinate(row);
-			j = CheckerboardAlgorithm.calculationIndexByCoordinate(coll);
+		if(Common.getCommon().getCurrent_status()) {
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 
 			//获取当前棋子颜色信息，false为黑色，true为白色
 			current_chess_piece = checkerboard.getCurrent_chess_piece();
 
 			//判断当前棋子颜色与当前位置是否有棋子，如果为黑色，数组相应位置置为1，如果是白色，数组相应位置置为2
-			if(checkerboard.getCheckerboardSituation()[i][j] == 0) {
+			if(checkerboard.getCheckerboardSituation()[row][coll] == 0) {
 
 				if(current_chess_piece) {
-					checkerboard.getCheckerboardSituation()[i][j] = 2;
+					checkerboard.getCheckerboardSituation()[row][coll] = 2;
 				}else {
-					checkerboard.getCheckerboardSituation()[i][j] = 1;
+					checkerboard.getCheckerboardSituation()[row][coll] = 1;
 				}
 
 				//存储当前点击点在数组中的索引
 				int[] chessRecord = new int[2];
-				chessRecord[0] = i;
-				chessRecord[1] = j;
+				chessRecord[0] = row;
+				chessRecord[1] = coll;
 				//将下子位置添加进下子记录中
 				checkerboard.getChessRecord().add(chessRecord);
 
 				//将当前棋子颜色置为另一种
-				Checkerboard.getCheckerboard().setCurrent_chess_piece(!current_chess_piece);
+				checkerboard.setCurrent_chess_piece(!current_chess_piece);
 
 				//初始化所有能赢的情况
-				win = Computer_vs_player.getComputer_vs_player().getWin();
+				win = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getWin();
 				for(int k = 0; k < 1020; k++){  
-					if(playerTable[i][j][k] && this.win[0][k] != 7)  
+					if(playerTable[row][coll][k] && this.win[0][k] != 7)  
 						win[0][k]++;     //给黑子的所有五连子可能的加载当前连子数  
-					if(robotTable[i][j][k]){  
-						robotTable[i][j][k] = false;  
+					if(robotTable[row][coll][k]){  
+						robotTable[row][coll][k] = false;  
 						win[1][k]=7;  
 					}  
 				} 
@@ -84,7 +78,7 @@ public class Player implements ChessPlayer{
 				CheckerboardFrame.getCheckerboardFrame().repaint();
 
 				//检测出有胜利一方执行的操作
-				if(CheckerboardAlgorithm.judge(i,j)) {
+				if(CheckerboardAlgorithm.judge(row,coll)) {
 					Common.getCommon().setCurrent_status(false);
 					checkerboard.setTimerRun(false);
 					//存储胜利方
@@ -97,7 +91,7 @@ public class Player implements ChessPlayer{
 					CheckerboardFunction.connectedPiecesFlash();
 				}
 				//检测出和棋执行的操作
-				else if(Checkerboard.getCheckerboard().getChessRecord().size() == 19*19){
+				else if(checkerboard.getChessRecord().size() == 19*19){
 					Common.getCommon().setCurrent_status(false);
 					checkerboard.setTimerRun(false);
 					//存储比赛结果为和棋

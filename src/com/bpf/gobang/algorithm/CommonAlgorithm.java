@@ -2,6 +2,7 @@ package com.bpf.gobang.algorithm;
 
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.function.CheckerboardFunction;
 
 /**
  * <p>Title: CommonAlgorithm</p>
@@ -37,8 +38,10 @@ public class CommonAlgorithm {
 	 * @return
 	 */
 	public static String timeFormat() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 		//获取游戏时间
-		int gameTime = Checkerboard.getCheckerboard().getGameTime();
+		int gameTime = checkerboard.getGameTime();
 		//进行格式转换
 		String minute = gameTime/60 < 10 ? "0" + (gameTime/60) : "" + (gameTime/60);
 		String second = gameTime%60 < 10 ? "0" + (gameTime%60) : "" + (gameTime%60);
@@ -52,8 +55,10 @@ public class CommonAlgorithm {
 	 * @return
 	 */
 	public static int stepCount() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 		//获取双方总步数
-		int totalStepCount = Checkerboard.getCheckerboard().getChessRecord().size();
+		int totalStepCount = checkerboard.getChessRecord().size();
 		
 		return totalStepCount % 2 == 0 ? totalStepCount / 2 : (totalStepCount - 1) / 2 + 1;
 	}

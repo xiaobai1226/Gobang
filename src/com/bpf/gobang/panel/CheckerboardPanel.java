@@ -1,6 +1,5 @@
 package com.bpf.gobang.panel;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,6 +11,7 @@ import javax.swing.JPanel;
 import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.entity.UniversalBoard;
 import com.bpf.gobang.listener.CheckerboardMouseListener;
 import com.bpf.gobang.listener.CheckerboardMouseMotionListener;
 
@@ -46,7 +46,8 @@ public class CheckerboardPanel extends JPanel{
         return checkerboardPanel;
     }
     
-    Checkerboard checkerboard = Checkerboard.getCheckerboard();
+    private Checkerboard checkerboard;
+    private UniversalBoard universalBoard = new UniversalBoard();
     
     /**
      * <p>Title: init</p>
@@ -63,12 +64,11 @@ public class CheckerboardPanel extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		try {
-			//利用双缓冲技术，防止屏幕闪烁
-			BufferedImage bufferImage = new BufferedImage(800,830,BufferedImage.TYPE_INT_ARGB);
-			Graphics graphics = bufferImage.createGraphics();
+			//根据当前页面选择使用的棋盘属性
+			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 			
 			//添加棋盘图片
-			graphics.drawImage(ImageIO.read(new File(checkerboard.getCHECKERBOARD_IMAGE_URL())), 0, 0, this);
+			g.drawImage(ImageIO.read(new File(universalBoard.getCHECKERBOARD_IMAGE_URL())), 0, 0, this);
 			//添加光标
 			//只有在棋盘范围内时，才显示此选择框
 			int x = CheckerboardAlgorithm.calculationIndexByCoordinate(checkerboard.getCursor_position()[0]);
@@ -78,7 +78,7 @@ public class CheckerboardPanel extends JPanel{
 				cursorX = CheckerboardAlgorithm.calculationPositionByCoordinate(checkerboard.getCursor_position()[0]);
 				cursorY = CheckerboardAlgorithm.calculationPositionByCoordinate(checkerboard.getCursor_position()[1]);
 				
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getCURSOR_IMAGE_URL())), cursorX, cursorY, this);
+				g.drawImage(ImageIO.read(new File(universalBoard.getCURSOR_IMAGE_URL())), cursorX, cursorY, this);
 			}
 			
 			//获取当前棋盘信息
@@ -87,12 +87,12 @@ public class CheckerboardPanel extends JPanel{
 			for(int i = 0; i < checkerboard_situation.length; i++) {
 				for(int j = 0; j < checkerboard_situation.length; j++) {
 					if(checkerboard_situation[i][j] == 1) {
-						graphics.drawImage(ImageIO.read(new File(checkerboard.getBLACK_CHESS_PIECES_IMAGE_URL())), //棋子图片
+						g.drawImage(ImageIO.read(new File(universalBoard.getBLACK_CHESS_PIECES_IMAGE_URL())), //棋子图片
 								CheckerboardAlgorithm.calculationCoordinateByIndex(i), //棋子横坐标
 								CheckerboardAlgorithm.calculationCoordinateByIndex(j), //棋子纵坐标
 								this);
 					}else if(checkerboard_situation[i][j] == 2) {
-						graphics.drawImage(ImageIO.read(new File(checkerboard.getWHITE_CHESS_PIECES_IMAGE_URL())), 
+						g.drawImage(ImageIO.read(new File(universalBoard.getWHITE_CHESS_PIECES_IMAGE_URL())), 
 								CheckerboardAlgorithm.calculationCoordinateByIndex(i), 
 								CheckerboardAlgorithm.calculationCoordinateByIndex(j),
 								this);
@@ -105,13 +105,11 @@ public class CheckerboardPanel extends JPanel{
 			if(length > 0) {
 				int lastI = checkerboard.getChessRecord().get(length - 1)[0];
 				int lastJ = checkerboard.getChessRecord().get(length - 1)[1];
-				graphics.drawImage(ImageIO.read(new File(checkerboard.getPOINT_IMAGE_URL())), //红点图片
+				g.drawImage(ImageIO.read(new File(universalBoard.getPOINT_IMAGE_URL())), //红点图片
 						CheckerboardAlgorithm.calculationCoordinateByIndex(lastI) + 13, //红点横坐标
 						CheckerboardAlgorithm.calculationCoordinateByIndex(lastJ) + 13, //红点纵坐标
 						this);
 			}
-			
-			g.drawImage(bufferImage, 0, 0, this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

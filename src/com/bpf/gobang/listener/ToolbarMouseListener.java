@@ -13,10 +13,14 @@ import com.bpf.gobang.frame.MenuFrame;
 import com.bpf.gobang.function.CheckerboardFunction;
 
 public class ToolbarMouseListener extends MouseAdapter{
-	Toolbar toolbar = Toolbar.getToolbar();
-	Checkerboard checkerboard = Checkerboard.getCheckerboard();
+	private Toolbar toolbar = Toolbar.getToolbar();
+	private Checkerboard checkerboard;
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//根据当前页面选择使用的棋盘属性
+		checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		
 		//当前状态为true才可以操作
 		if(Common.getCommon().getCurrent_status()) {
 			//点击返回按钮

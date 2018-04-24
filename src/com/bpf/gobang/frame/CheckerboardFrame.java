@@ -1,18 +1,13 @@
 package com.bpf.gobang.frame;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import com.bpf.gobang.algorithm.CommonAlgorithm;
-import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
-import com.bpf.gobang.function.runnable.TimerRunnable;
+import com.bpf.gobang.entity.UniversalBoard;
 import com.bpf.gobang.panel.CheckerboardPanel;
 import com.bpf.gobang.panel.ToolbarPanel;
-import com.bpf.gobang.panel.WinPanel;
 
 /**
  * <p>Title: CheckerboardFrame</p>
@@ -41,17 +36,17 @@ public class CheckerboardFrame extends JFrame{
     }
     
     Common common = Common.getCommon();
-    Checkerboard checkerboard = Checkerboard.getCheckerboard();
     
     /**
      * <p>Title: init</p>
      * <p>Description: 该窗体的初始化方法</p>
      */
     public void init() {
+    	UniversalBoard universalBoard = new UniversalBoard();
     	//获得棋盘窗体宽度
-		int checkerboard_width = checkerboard.getCHECKERBOARD_WIDTH();
+		int checkerboard_width = universalBoard.getCHECKERBOARD_WIDTH();
 		//获得棋盘窗体高度
-		int checkerboard_height = checkerboard.getCHECKERBOARD_HEIGHT();
+		int checkerboard_height = universalBoard.getCHECKERBOARD_HEIGHT();
 		//获得棋盘窗体坐标位置
 		int[] checkerboardCoordinate = CommonAlgorithm.calculateFramePosition(checkerboard_width, checkerboard_height);
 		

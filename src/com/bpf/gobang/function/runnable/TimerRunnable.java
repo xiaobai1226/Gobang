@@ -12,7 +12,8 @@ import com.bpf.gobang.frame.CheckerboardFrame;
  * @version 1.0.0
  */
 public class TimerRunnable implements Runnable{
-	Checkerboard checkerboard = Checkerboard.getCheckerboard();
+	//根据当前页面选择使用的棋盘属性
+	Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());;
 	 
 	@Override
 	public void run() {
