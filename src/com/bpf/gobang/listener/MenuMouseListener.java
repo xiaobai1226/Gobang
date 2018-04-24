@@ -12,7 +12,7 @@ import com.bpf.gobang.function.runnable.TimerRunnable;
 public class MenuMouseListener extends MouseAdapter{
 	private Checkerboard checkerboard;
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		//判断光标在哪个按钮上
 		//点击战绩按钮
 		if(e.getX() >= 85 && e.getX() <= 215 && e.getY() >= 20 && e.getY() <= 120) {

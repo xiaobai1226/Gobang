@@ -17,7 +17,7 @@ public class ToolbarMouseListener extends MouseAdapter{
 	private Checkerboard checkerboard;
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		//根据当前页面选择使用的棋盘属性
 		checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 		

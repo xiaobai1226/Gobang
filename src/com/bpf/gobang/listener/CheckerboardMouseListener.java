@@ -20,8 +20,9 @@ public class CheckerboardMouseListener extends MouseAdapter{
 	private ChessPlayer robot = new Robot();
 	private boolean order = false;
 	RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
+	
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		//点击在棋盘范围内才执行操作
 		if(e.getX() >= 35 && e.getX() <= 765 && e.getY() >= 35 && e.getY() <= 765) {
 			//判断当前页面，根据页面执行不同的操作，双人对弈，轮流执行玩家下子动作

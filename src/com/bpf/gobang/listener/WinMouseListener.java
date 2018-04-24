@@ -17,7 +17,7 @@ import com.bpf.gobang.function.CheckerboardFunction;
  */
 public class WinMouseListener extends MouseAdapter{
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		//点击重玩按钮
 		if(Toolbar.getToolbar().getCURRENT_BUTTON().equals("another_game")) {
 			CheckerboardFunction.restart();
