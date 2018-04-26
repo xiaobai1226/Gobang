@@ -3,7 +3,6 @@ package com.bpf.gobang.listener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.Toolbar;
 import com.bpf.gobang.frame.CheckerboardFrame;

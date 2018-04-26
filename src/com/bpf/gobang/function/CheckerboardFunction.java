@@ -1,10 +1,10 @@
 package com.bpf.gobang.function;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
-import com.bpf.gobang.entity.Computer_vs_player;
 import com.bpf.gobang.frame.CheckerboardFrame;
 import com.bpf.gobang.frame.MenuFrame;
 import com.bpf.gobang.function.runnable.ConnectedPiecesFlashRunnable;
@@ -40,11 +40,18 @@ public class CheckerboardFunction {
 		//将当前状态置为true
 		Common.getCommon().setCurrent_status(true);
 		//初始化获胜组合
-		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).initWinCombination();
+		checkerboard.initWinCombination();
 		//初始化
-		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).setWin(new int[2][1020]);
+		checkerboard.setWin(new int[2][1020]);
+		//
+		checkerboard.setWinRecord(new ArrayList<int[][]>());
+		//
+		checkerboard.setPlayerTableRecord(new ArrayList<boolean[][][]>());
+		//
+		checkerboard.setRobotTableRecord(new ArrayList<boolean[][][]>());
+		
 		//初始化玩家与电脑得分
-		Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).setScores(new int[2][19][19]);
+		checkerboard.setScores(new int[2][19][19]);
 		//将计时器开关打开
 		checkerboard.setTimerRun(true);
 		//获取存储的计时器线程
@@ -107,5 +114,75 @@ public class CheckerboardFunction {
 		CheckerboardFrame.getCheckerboardFrame().add(toolbarPanel);
 		
 		CheckerboardFrame.getCheckerboardFrame().repaint();
+	}
+	
+	/**
+	 * <p>Title: copyWin</p>
+	 * <p>Description: 备份所有能赢的情况</p>
+	 */
+	public static void copyWin() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		int[][] win = new int[2][1020];
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 1020; j++) {
+				win[i][j] = checkerboard.getWin()[i][j];
+			}
+		}
+		checkerboard.getWinRecord().add(win);
+	}
+	
+	/**
+	 * <p>Title: copyTable</p>
+	 * <p>Description: 备份落子点获胜组合</p>
+	 */
+	public static void copyTable() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		boolean[][][] playerTable = new boolean[19][19][1020];
+		boolean[][][] robotTable = new boolean[19][19][1020];
+		for(int i = 0; i < 19; i++) {
+			for(int j = 0; j < 19; j++) {
+				for(int k = 0; k < 1020; k++) {
+					playerTable[i][j][k] = checkerboard.getPlayerTable()[i][j][k];
+					robotTable[i][j][k] = checkerboard.getRobotTable()[i][j][k];
+				}
+			}
+		}
+		
+		checkerboard.getPlayerTableRecord().add(playerTable);
+		checkerboard.getRobotTableRecord().add(robotTable);
+		
+	}
+	
+	/**
+	 * <p>Title: restoreWin</p>
+	 * <p>Description: 恢复上一次所有能赢的情况</p>
+	 */
+	public static void restoreWin() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		int size = checkerboard.getWinRecord().size() - 1;
+		checkerboard.setWin(checkerboard.getWinRecord().get(size));
+		
+		checkerboard.getWinRecord().remove(size);
+	}
+	
+	/**
+	 * <p>Title: restoreTable</p>
+	 * <p>Description: 恢复上一次落子点获胜组合</p>
+	 */
+	public static void restoreTable() {
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		
+		int playerTableSize = checkerboard.getPlayerTableRecord().size() - 1;
+		int robotTableSize = checkerboard.getRobotTableRecord().size() - 1;
+		
+		checkerboard.setPlayerTable(checkerboard.getPlayerTableRecord().get(playerTableSize));
+		checkerboard.setRobotTable(checkerboard.getRobotTableRecord().get(robotTableSize));
+		
+		checkerboard.getPlayerTableRecord().remove(playerTableSize);
+		checkerboard.getRobotTableRecord().remove(robotTableSize);
 	}
 }

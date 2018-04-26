@@ -3,7 +3,6 @@ package com.bpf.gobang.role;
 import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
-import com.bpf.gobang.entity.Computer_vs_player;
 import com.bpf.gobang.frame.CheckerboardFrame;
 import com.bpf.gobang.function.CheckerboardFunction;
 
@@ -20,9 +19,9 @@ public class Player implements ChessPlayer{
 	//获取棋盘通用属性
 	Checkerboard checkerboard = null;
 	//玩家落子点得分
-	private boolean[][][] playerTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getPlayerTable();  
+	private boolean[][][] playerTable = null;  
 	//机器人落子点得分
-	private boolean[][][] robotTable = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getRobotTable(); 
+	private boolean[][][] robotTable = null; 
 	//所有能赢的情况
 	private int[][] win = null;
 
@@ -40,7 +39,10 @@ public class Player implements ChessPlayer{
 		if(Common.getCommon().getCurrent_status()) {
 			//根据当前页面选择使用的棋盘属性
 			checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
-
+			//玩家落子点得分
+			playerTable = checkerboard.getPlayerTable();
+			//机器人落子点得分
+			robotTable = checkerboard.getRobotTable();
 			//获取当前棋子颜色信息，false为黑色，true为白色
 			current_chess_piece = checkerboard.getCurrent_chess_piece();
 
@@ -63,11 +65,13 @@ public class Player implements ChessPlayer{
 				//将当前棋子颜色置为另一种
 				checkerboard.setCurrent_chess_piece(!current_chess_piece);
 
-				//初始化所有能赢的情况
-				win = Computer_vs_player.getComputer_vs_player(Common.getCommon().getCurrent_page()).getWin();
-				for(int k = 0; k < 1020; k++){  
-					if(playerTable[row][coll][k] && this.win[0][k] != 7)  
-						win[0][k]++;     //给黑子的所有五连子可能的加载当前连子数  
+				//获得所有能赢的情况
+				win = checkerboard.getWin();
+				
+				for(int k = 0; k < 1020; k++){
+					if(playerTable[row][coll][k] && this.win[0][k] != 7)
+						//给黑子的所有五连子可能的加载当前连子数
+						win[0][k]++;
 					if(robotTable[row][coll][k]){  
 						robotTable[row][coll][k] = false;  
 						win[1][k]=7;  

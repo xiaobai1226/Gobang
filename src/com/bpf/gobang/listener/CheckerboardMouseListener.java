@@ -7,6 +7,7 @@ import com.bpf.gobang.algorithm.CheckerboardAlgorithm;
 import com.bpf.gobang.algorithm.RobotAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
+import com.bpf.gobang.function.CheckerboardFunction;
 import com.bpf.gobang.role.ChessPlayer;
 import com.bpf.gobang.role.Player;
 import com.bpf.gobang.role.Robot;
@@ -30,7 +31,17 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				//根据算法计算出当前点击点在数组中的索引
 				i = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getX());
 				j = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getY());
-				player.put(i, j);
+				
+				//备份所有能赢的情况
+				CheckerboardFunction.copyWin();
+				//备份落子点获胜组合
+				CheckerboardFunction.copyTable();
+				
+				if(Checkerboard.getCheckerboard(Common.TWOPLAYER).getCurrent_chess_piece()) {
+					robot.put(i,j);
+				}else {
+					player.put(i, j);
+				}
 			}
 			
 			//判断当前页面，根据页面执行不同的操作，人机对战，玩家与机器人轮流执行下子动作
@@ -45,9 +56,17 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 				//判断当前索引位置是否有子，无子继续执行操作
 				if(checkerboard.getCheckerboardSituation()[i][j] == 0) {
+					//备份所有能赢的情况
+					CheckerboardFunction.copyWin();
+					//备份落子点获胜组合
+					CheckerboardFunction.copyTable();
 					player.put(i, j);
 					order = !order;
 					
+					//备份所有能赢的情况
+					CheckerboardFunction.copyWin();
+					//备份落子点获胜组合
+					CheckerboardFunction.copyTable();
 					int[] bestFallingPoint = robotAlgorithm.bestFallingPoint();
 					robot.put(bestFallingPoint[0], bestFallingPoint[1]);
 					order = !order;

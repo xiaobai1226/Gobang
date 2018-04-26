@@ -36,14 +36,6 @@ public class Checkerboard {
     }
     
     private Thread timerThread;
-	public Thread getTimerThread() {
-		return timerThread;
-	}
-
-	public void setTimerThread(Thread timerThread) {
-		this.timerThread = timerThread;
-	}
-	
     //棋盘落子情况 0为无子，1为黑子，2为白子
     private int[][] checkerboardSituation;
     //下子点记录
@@ -60,6 +52,22 @@ public class Checkerboard {
     private int gameTime;
     //计时器线程是否运行标志位
     private boolean timerRun;
+    //玩家落子点获胜组合
+  	private boolean[][][] playerTable = new boolean[19][19][1020];  
+  	//机器人落子点获胜组合
+  	private boolean[][][] robotTable = new boolean[19][19][1020];
+  	//玩家落子点获胜组合（备份记录，用与悔棋）
+  	private List<boolean[][][]> playerTableRecord = new ArrayList<boolean[][][]>();
+  	//机器人落子点获胜组合（备份记录，用与悔棋）
+  	private List<boolean[][][]> robotTableRecord = new ArrayList<boolean[][][]>();
+  	//所有能赢的情况
+  	private int[][] win = new int[2][1020];
+  	//所有能赢的情况（备份记录，用与悔棋）
+  	private List<int[][]> winRecord = new ArrayList<int[][]>();
+  	//玩家与电脑得分
+  	private int[][][] scores = new int[2][19][19];
+  	//先下子一方
+  	private boolean first_player; 
 
 	public int[][] getCheckerboardSituation() {
 		return checkerboardSituation;
@@ -121,6 +129,78 @@ public class Checkerboard {
 		this.game_result = game_result;
 	}
 
+	public boolean[][][] getPlayerTable() {
+		return playerTable;
+	}
+
+	public void setPlayerTable(boolean[][][] playerTable) {
+		this.playerTable = playerTable;
+	}
+
+	public boolean[][][] getRobotTable() {
+		return robotTable;
+	}
+
+	public void setRobotTable(boolean[][][] robotTable) {
+		this.robotTable = robotTable;
+	}
+
+	public int[][] getWin() {
+		return win;
+	}
+
+	public void setWin(int[][] win) {
+		this.win = win;
+	}
+	
+	public int[][][] getScores() {
+		return scores;
+	}
+
+	public void setScores(int[][][] scores) {
+		this.scores = scores;
+	}
+
+	public boolean isFirst_player() {
+		return first_player;
+	}
+
+	public void setFirst_player(boolean first_player) {
+		this.first_player = first_player;
+	}
+	
+	public Thread getTimerThread() {
+		return timerThread;
+	}
+
+	public void setTimerThread(Thread timerThread) {
+		this.timerThread = timerThread;
+	}
+	
+	public List<boolean[][][]> getPlayerTableRecord() {
+		return playerTableRecord;
+	}
+
+	public void setPlayerTableRecord(List<boolean[][][]> playerTableRecord) {
+		this.playerTableRecord = playerTableRecord;
+	}
+
+	public List<boolean[][][]> getRobotTableRecord() {
+		return robotTableRecord;
+	}
+
+	public void setRobotTableRecord(List<boolean[][][]> robotTableRecord) {
+		this.robotTableRecord = robotTableRecord;
+	}
+
+	public List<int[][]> getWinRecord() {
+		return winRecord;
+	}
+
+	public void setWinRecord(List<int[][]> winRecord) {
+		this.winRecord = winRecord;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -138,6 +218,8 @@ public class Checkerboard {
 			checkerboardSituation = new int[19][19];
 			cursor_position = new int[2];
 			
+			initWinCombination();
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -148,4 +230,46 @@ public class Checkerboard {
 			}
 		}
     }
+    
+    public void initWinCombination() {
+		//遍历所有的五连子可能情况的权值  
+        //横 
+		int icount = 0;
+        for(int i=0; i<19; i++)  
+            for(int j=0;j<15;j++){  
+                for(int k=0;k<5;k++){  
+                    playerTable[j+k][i][icount] = true;  
+                    robotTable[j+k][i][icount] = true;  
+                }  
+                icount++;  
+            }  
+        //竖  
+        for(int i=0;i<19;i++)  
+            for(int j=0;j<15;j++){  
+                for(int k=0;k<5;k++){  
+                    playerTable[i][j+k][icount] = true;  
+                    robotTable[i][j+k][icount] = true;  
+                }  
+                icount++;  
+            }  
+        //右斜  
+        for(int i=0;i<15;i++)  
+            for(int j=0;j<15;j++){  
+                for(int k=0;k<5;k++){  
+                    playerTable[j+k][i+k][icount] = true;  
+                    robotTable[j+k][i+k][icount] = true;  
+                }  
+                icount++;  
+            }  
+        //左斜  
+        for(int i=0;i<15;i++) {
+        	for(int j=18;j>=4;j--){  
+                for(int k=0;k<5;k++){  
+                    playerTable[j-k][i+k][icount] = true;  
+                    robotTable[j-k][i+k][icount] = true;  
+                }  
+                icount++;  
+            }  
+        }
+	}
 }

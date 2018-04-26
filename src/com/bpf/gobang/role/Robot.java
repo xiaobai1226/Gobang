@@ -18,6 +18,12 @@ public class Robot implements ChessPlayer{
 	private boolean current_chess_piece;
 	//获取棋盘通用属性
 	Checkerboard checkerboard = null;
+	//玩家落子点得分
+	private boolean[][][] playerTable = null;  
+	//机器人落子点得分
+	private boolean[][][] robotTable = null; 
+	//所有能赢的情况
+	private int[][] win = null;
 	
 	/**
 	 * <p>Title: put</p>
@@ -50,6 +56,23 @@ public class Robot implements ChessPlayer{
 				
 				//将当前棋子颜色置为另一种
 				checkerboard.setCurrent_chess_piece(!current_chess_piece);
+				
+				//玩家落子点得分
+				playerTable = checkerboard.getPlayerTable();
+				//机器人落子点得分
+				robotTable = checkerboard.getRobotTable();
+				//初始化所有能赢的情况
+				win = checkerboard.getWin();
+				
+				for(int k = 0; k < 1020; k++){  
+		            if(robotTable[row][coll][k] && this.win[1][k] != 7)
+		            	//给白子的所有五连子可能的加载当前连子数 
+		                win[1][k]++;
+		            if(playerTable[row][coll][k]){
+		                playerTable[row][coll][k] = false;
+		                win[0][k]=7;
+		            }  
+		        }  
 				
 				//重绘棋盘窗体
 				CheckerboardFrame.getCheckerboardFrame().repaint();

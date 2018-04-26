@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import com.bpf.gobang.entity.Common;
-import com.bpf.gobang.entity.Menu;
 import com.bpf.gobang.frame.MenuFrame;
 
 /**
