@@ -19,7 +19,6 @@ public class CheckerboardMouseListener extends MouseAdapter{
 	private int j;
 	private ChessPlayer player = new Player();
 	private ChessPlayer robot = new Robot();
-	private boolean order = false;
 	RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
 	
 	@Override
@@ -31,11 +30,6 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				//根据算法计算出当前点击点在数组中的索引
 				i = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getX());
 				j = CheckerboardAlgorithm.calculationIndexByCoordinate(e.getY());
-				
-				//备份所有能赢的情况
-				CheckerboardFunction.copyWin();
-				//备份落子点获胜组合
-				CheckerboardFunction.copyTable();
 				
 				if(Checkerboard.getCheckerboard(Common.TWOPLAYER).getCurrent_chess_piece()) {
 					robot.put(i,j);
@@ -56,20 +50,10 @@ public class CheckerboardMouseListener extends MouseAdapter{
 				Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
 				//判断当前索引位置是否有子，无子继续执行操作
 				if(checkerboard.getCheckerboardSituation()[i][j] == 0) {
-					//备份所有能赢的情况
-					CheckerboardFunction.copyWin();
-					//备份落子点获胜组合
-					CheckerboardFunction.copyTable();
 					player.put(i, j);
-					order = !order;
 					
-					//备份所有能赢的情况
-					CheckerboardFunction.copyWin();
-					//备份落子点获胜组合
-					CheckerboardFunction.copyTable();
 					int[] bestFallingPoint = robotAlgorithm.bestFallingPoint();
 					robot.put(bestFallingPoint[0], bestFallingPoint[1]);
-					order = !order;
 				}
 			}
 		}

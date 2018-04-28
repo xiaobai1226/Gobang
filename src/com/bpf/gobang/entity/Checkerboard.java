@@ -161,7 +161,7 @@ public class Checkerboard {
 		this.scores = scores;
 	}
 
-	public boolean isFirst_player() {
+	public boolean getFirst_player() {
 		return first_player;
 	}
 
@@ -211,7 +211,7 @@ public class Checkerboard {
 			Properties properties = new Properties();
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
-			
+			first_player = true;
 			timerRun = true;
 			gameTime = 0;
 			chessRecord = new ArrayList<int[]>();

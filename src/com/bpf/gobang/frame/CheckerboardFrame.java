@@ -4,10 +4,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import com.bpf.gobang.algorithm.CommonAlgorithm;
+import com.bpf.gobang.algorithm.RobotAlgorithm;
+import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.entity.UniversalBoard;
 import com.bpf.gobang.panel.CheckerboardPanel;
 import com.bpf.gobang.panel.ToolbarPanel;
+import com.bpf.gobang.role.ChessPlayer;
+import com.bpf.gobang.role.Robot;
 
 /**
  * <p>Title: CheckerboardFrame</p>

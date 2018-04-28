@@ -45,6 +45,11 @@ public class Player implements ChessPlayer{
 			robotTable = checkerboard.getRobotTable();
 			//获取当前棋子颜色信息，false为黑色，true为白色
 			current_chess_piece = checkerboard.getCurrent_chess_piece();
+			
+			//备份所有能赢的情况
+			CheckerboardFunction.copyWin();
+			//备份落子点获胜组合
+			CheckerboardFunction.copyTable();
 
 			//判断当前棋子颜色与当前位置是否有棋子，如果为黑色，数组相应位置置为1，如果是白色，数组相应位置置为2
 			if(checkerboard.getCheckerboardSituation()[row][coll] == 0) {
