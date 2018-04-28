@@ -27,15 +27,21 @@ public class ToolbarMouseListener extends MouseAdapter{
 			}
 			
 			//点击重玩按钮
-			if(toolbar.getCURRENT_BUTTON().equals("restart")) {
+			else if(toolbar.getCURRENT_BUTTON().equals("restart")) {
 				//执行重新开始方法
 				CheckerboardFunction.restart();
 			}
 			
 			//点击悔棋按钮
-			if(toolbar.getCURRENT_BUTTON().equals("regret")) {
+			else if(toolbar.getCURRENT_BUTTON().equals("regret")) {
 				//执行悔棋方法
 				ToolbarFunction.regret();
+			}
+			
+			//点击提示按钮
+			else if(toolbar.getCURRENT_BUTTON().equals("prompt")) {
+				//执行提示方法
+				ToolbarFunction.prompt();
 			}
 		}
 	}

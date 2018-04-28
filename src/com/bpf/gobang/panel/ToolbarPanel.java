@@ -96,11 +96,18 @@ public class ToolbarPanel extends JPanel{
 				g.drawImage(ImageIO.read(new File(toolbar.getRESTART_IMAGE_URL())), 20, 240, this);
 			}
 			
-			//添加重玩按钮图片
+			//添加悔棋按钮图片
 			if(toolbar.getCURRENT_BUTTON().equals("regret")) {
 				g.drawImage(ImageIO.read(new File(toolbar.getBIG_REGRET_IMAGE_URL())), 14, 337, this);
 			}else {
 				g.drawImage(ImageIO.read(new File(toolbar.getREGRET_IMAGE_URL())), 17, 340, this);
+			}
+			
+			//添加提示按钮图片
+			if(toolbar.getCURRENT_BUTTON().equals("prompt")) {
+				g.drawImage(ImageIO.read(new File(toolbar.getBIG_PROMPT_IMAGE_URL())), 15, 437, this);
+			}else {
+				g.drawImage(ImageIO.read(new File(toolbar.getPROMPT_IMAGE_URL())), 18, 440, this);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

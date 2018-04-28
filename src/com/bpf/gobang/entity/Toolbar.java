@@ -38,6 +38,10 @@ public class Toolbar {
 	private String BIG_REGRET_IMAGE_URL;
 	//工具栏背景图片
 	private String TOOLBAR_BACKGROUND_IMAGE_URL;
+	//提示图片位置
+	private String PROMPT_IMAGE_URL;
+	//提示图片（大）位置
+	private String BIG_PROMPT_IMAGE_URL;
 	//当前按钮
     private String CURRENT_BUTTON;
 	
@@ -69,6 +73,14 @@ public class Toolbar {
 		return TOOLBAR_BACKGROUND_IMAGE_URL;
 	}
 
+	public String getPROMPT_IMAGE_URL() {
+		return PROMPT_IMAGE_URL;
+	}
+
+	public String getBIG_PROMPT_IMAGE_URL() {
+		return BIG_PROMPT_IMAGE_URL;
+	}
+
 	public String getCURRENT_BUTTON() {
 		return CURRENT_BUTTON;
 	}
@@ -88,6 +100,8 @@ public class Toolbar {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			PROMPT_IMAGE_URL = properties.getProperty("prompt_image_url");
+			BIG_PROMPT_IMAGE_URL = properties.getProperty("big_prompt_image_url");
 			BACK_IMAGE_URL = properties.getProperty("back_image_url");
 			BIG_BACK_IMAGE_URL = properties.getProperty("big_back_image_url");
 			RESTART_IMAGE_URL = properties.getProperty("restart_image_url");

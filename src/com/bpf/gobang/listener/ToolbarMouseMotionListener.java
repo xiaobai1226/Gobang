@@ -35,6 +35,10 @@ public class ToolbarMouseMotionListener extends MouseMotionAdapter{
 			else if(e.getX() >= 17 && e.getX() <= 77 && e.getY() >= 340 && e.getY() <= 418) {
 				toolbar.setCURRENT_BUTTON("regret");
 			}
+			//在提示按钮上
+			else if(e.getX() >= 18 && e.getX() <= 73 && e.getY() >= 440 && e.getY() <= 523) {
+				toolbar.setCURRENT_BUTTON("prompt");
+			}
 			CheckerboardFrame.getCheckerboardFrame().repaint();
 		}
 	}

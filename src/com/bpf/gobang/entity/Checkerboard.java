@@ -66,7 +66,7 @@ public class Checkerboard {
   	private List<int[][]> winRecord = new ArrayList<int[][]>();
   	//玩家与电脑得分
   	private int[][][] scores = new int[2][19][19];
-  	//先下子一方
+  	//先下子一方,true为电脑、false为玩家
   	private boolean first_player; 
 
 	public int[][] getCheckerboardSituation() {

@@ -1,8 +1,12 @@
 package com.bpf.gobang.function;
 
+import com.bpf.gobang.algorithm.RobotAlgorithm;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.frame.CheckerboardFrame;
+import com.bpf.gobang.role.ChessPlayer;
+import com.bpf.gobang.role.Player;
+import com.bpf.gobang.role.Robot;
 
 /**
  * <p>Title: ToolbarFunction</p>
@@ -72,5 +76,35 @@ public class ToolbarFunction {
 			}
 		};
 		t.start();
+	}
+	
+	/**
+	 * <p>Title: prompt</p>
+	 * <p>Description: 提示方法</p>
+	 */
+	public static void prompt() {
+		RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
+		ChessPlayer player = new Player();
+		ChessPlayer robot = new Robot();
+		int[] bestFallingPoint = null;
+		
+		//根据当前页面选择使用的棋盘属性
+		Checkerboard checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
+		
+		if(Common.getCommon().getCurrent_page().equals(Common.TWOPLAYER)) {
+			bestFallingPoint = robotAlgorithm.bestFallingPoint();
+			if(checkerboard.getCurrent_chess_piece()) {
+				robot.put(bestFallingPoint[0], bestFallingPoint[1]);
+			}else {
+				player.put(bestFallingPoint[0], bestFallingPoint[1]);
+			}
+		}else if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER)) {
+			bestFallingPoint = robotAlgorithm.bestFallingPoint();
+			player.put(bestFallingPoint[0], bestFallingPoint[1]);
+			
+			bestFallingPoint = robotAlgorithm.bestFallingPoint();
+			robot.put(bestFallingPoint[0], bestFallingPoint[1]);
+		}
+		Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page()).getFirst_player();
 	}
 }
