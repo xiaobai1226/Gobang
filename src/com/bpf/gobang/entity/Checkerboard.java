@@ -46,7 +46,7 @@ public class Checkerboard {
     private int[] cursor_position;
     //当前棋子 false是黑色，true是白色
     private boolean current_chess_piece;
-    //游戏结果 0为和棋，1为黑棋胜，2为白棋胜
+    //游戏结果 0为和棋，1为黑棋胜，2为白棋胜，3为胜利，4为失败
     private int game_result;
     //游戏时间
     private int gameTime;
@@ -211,7 +211,6 @@ public class Checkerboard {
 			Properties properties = new Properties();
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
-			first_player = true;
 			timerRun = true;
 			gameTime = 0;
 			chessRecord = new ArrayList<int[]>();

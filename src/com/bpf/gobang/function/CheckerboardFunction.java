@@ -12,6 +12,8 @@ import com.bpf.gobang.function.runnable.TimerRunnable;
 import com.bpf.gobang.panel.CheckerboardPanel;
 import com.bpf.gobang.panel.ToolbarPanel;
 import com.bpf.gobang.panel.WinPanel;
+import com.bpf.gobang.role.ChessPlayer;
+import com.bpf.gobang.role.Robot;
 
 /**
  * <p>Title: CheckerboardFunction</p>
@@ -67,6 +69,13 @@ public class CheckerboardFunction {
 		CheckerboardFrame.getCheckerboardFrame().remove(WinPanel.getWinPanel());
 		//重绘该窗体
 		CheckerboardFrame.getCheckerboardFrame().repaint();
+		
+		//如果电脑先行，则电脑下子
+		if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER) && 
+				checkerboard.getFirst_player()) {
+			ChessPlayer robot = new Robot();
+			robot.put(9, 9);
+		}
 	}
 	
 	/**

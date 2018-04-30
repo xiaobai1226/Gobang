@@ -42,8 +42,26 @@ public class Toolbar {
 	private String PROMPT_IMAGE_URL;
 	//提示图片（大）位置
 	private String BIG_PROMPT_IMAGE_URL;
+	//打开声音图片
+	private String OPEN_SOUND_IMAGE_URL;
+	//关闭声音图片
+	private String CLOSE_SOUND_IMAGE_URL;
+	//打开声音图片（大）
+	private String BIG_OPEN_SOUND_IMAGE_URL;
+	//关闭声音图片（大）
+	private String BIG_CLOSE_SOUND_IMAGE_URL;
+	//玩家先行图片
+	private String PLAYER_FIRST_IMAGE_URL;
+	//电脑先行图片
+	private String COMPUTER_FIRST_IMAGE_URL;
+	//玩家先行图片（大）
+	private String BIG_PLAYER_FIRST_IMAGE_URL;
+	//电脑先行图片（大）
+	private String BIG_COMPUTER_FIRST_IMAGE_URL;
 	//当前按钮
     private String CURRENT_BUTTON;
+    //声音是否打开
+    private boolean sound;
 	
 	public String getBACK_IMAGE_URL() {
 		return BACK_IMAGE_URL;
@@ -85,8 +103,48 @@ public class Toolbar {
 		return CURRENT_BUTTON;
 	}
 
+	public String getOPEN_SOUND_IMAGE_URL() {
+		return OPEN_SOUND_IMAGE_URL;
+	}
+
+	public String getCLOSE_SOUND_IMAGE_URL() {
+		return CLOSE_SOUND_IMAGE_URL;
+	}
+
 	public void setCURRENT_BUTTON(String cURRENT_BUTTON) {
 		CURRENT_BUTTON = cURRENT_BUTTON;
+	}
+
+	public boolean getSound() {
+		return sound;
+	}
+
+	public void setSound(boolean sound) {
+		this.sound = sound;
+	}
+
+	public String getBIG_OPEN_SOUND_IMAGE_URL() {
+		return BIG_OPEN_SOUND_IMAGE_URL;
+	}
+
+	public String getBIG_CLOSE_SOUND_IMAGE_URL() {
+		return BIG_CLOSE_SOUND_IMAGE_URL;
+	}
+
+	public String getPLAYER_FIRST_IMAGE_URL() {
+		return PLAYER_FIRST_IMAGE_URL;
+	}
+
+	public String getCOMPUTER_FIRST_IMAGE_URL() {
+		return COMPUTER_FIRST_IMAGE_URL;
+	}
+
+	public String getBIG_PLAYER_FIRST_IMAGE_URL() {
+		return BIG_PLAYER_FIRST_IMAGE_URL;
+	}
+
+	public String getBIG_COMPUTER_FIRST_IMAGE_URL() {
+		return BIG_COMPUTER_FIRST_IMAGE_URL;
 	}
 
 	/**
@@ -100,6 +158,7 @@ public class Toolbar {
 			inputStream = new FileInputStream("cfg/cfg.properties");
 			properties.load(inputStream);
 			
+			sound = true;
 			PROMPT_IMAGE_URL = properties.getProperty("prompt_image_url");
 			BIG_PROMPT_IMAGE_URL = properties.getProperty("big_prompt_image_url");
 			BACK_IMAGE_URL = properties.getProperty("back_image_url");
@@ -109,6 +168,14 @@ public class Toolbar {
 			REGRET_IMAGE_URL = properties.getProperty("regret_image_url");
 			BIG_REGRET_IMAGE_URL = properties.getProperty("big_regret_image_url");
 			TOOLBAR_BACKGROUND_IMAGE_URL = properties.getProperty("toolbar_background_image_url");
+			OPEN_SOUND_IMAGE_URL = properties.getProperty("open_sound_image_url");
+			CLOSE_SOUND_IMAGE_URL = properties.getProperty("close_sound_image_url");
+			BIG_OPEN_SOUND_IMAGE_URL = properties.getProperty("big_open_sound_image_url");
+			BIG_CLOSE_SOUND_IMAGE_URL = properties.getProperty("big_close_sound_image_url");
+			PLAYER_FIRST_IMAGE_URL = properties.getProperty("player_first_image_url");
+			COMPUTER_FIRST_IMAGE_URL = properties.getProperty("computer_first_image_url");
+			BIG_PLAYER_FIRST_IMAGE_URL = properties.getProperty("big_player_first_image_url");
+			BIG_COMPUTER_FIRST_IMAGE_URL = properties.getProperty("big_computer_first_image_url");
 			
 			CURRENT_BUTTON = "";
 		}catch(Exception e) {

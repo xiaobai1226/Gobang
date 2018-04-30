@@ -41,6 +41,10 @@ public class UniversalBoard {
     private String WHITE_WIN_IMAGE_URL;
     //和棋图片
     private String DEUCE_IMAGE_URL;
+    //胜利图片
+    private String WIN_IMAGE_URL;
+    //失败图片
+    private String FAIL_IMAGE_URL;
     //再来一局按钮图片
     private String ANOTHER_GAME_IMAGE_URL;
     //返回菜单按钮图片
@@ -121,6 +125,14 @@ public class UniversalBoard {
 		return DEUCE_IMAGE_URL;
 	}
 
+	public String getWIN_IMAGE_URL() {
+		return WIN_IMAGE_URL;
+	}
+
+	public String getFAIL_IMAGE_URL() {
+		return FAIL_IMAGE_URL;
+	}
+
 	/**
      * <p>Title: init</p>
      * <p>Description: 该类初始化方法，创建该类实例时，从配置文件中获取值赋给成员变量</p>
@@ -145,6 +157,8 @@ public class UniversalBoard {
 			BLACK_WIN_IMAGE_URL = properties.getProperty("black_win_image_url");
 			WHITE_WIN_IMAGE_URL = properties.getProperty("white_win_image_url");
 			DEUCE_IMAGE_URL = properties.getProperty("deuce_image_url");
+			WIN_IMAGE_URL = properties.getProperty("win_image_url");
+			FAIL_IMAGE_URL = properties.getProperty("fail_image_url");
 			ANOTHER_GAME_IMAGE_URL = properties.getProperty("another_game_image_url");
 			BACK_MENU_IMAGE_URL = properties.getProperty("back_menu_image_url");
 			BIG_ANOTHER_GAME_IMAGE_URL = properties.getProperty("big_another_game_image_url");

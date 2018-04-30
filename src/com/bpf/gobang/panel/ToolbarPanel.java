@@ -109,6 +109,38 @@ public class ToolbarPanel extends JPanel{
 			}else {
 				g.drawImage(ImageIO.read(new File(toolbar.getPROMPT_IMAGE_URL())), 18, 440, this);
 			}
+			
+			//添加声音按钮图片
+			if(toolbar.getCURRENT_BUTTON().equals("sound")) {
+				if(toolbar.getSound()) {
+					g.drawImage(ImageIO.read(new File(toolbar.getBIG_OPEN_SOUND_IMAGE_URL())), 13, 537, this);
+				}else {
+					g.drawImage(ImageIO.read(new File(toolbar.getBIG_CLOSE_SOUND_IMAGE_URL())), 13, 537, this);
+				}
+			}else {
+				if(toolbar.getSound()) {
+					g.drawImage(ImageIO.read(new File(toolbar.getOPEN_SOUND_IMAGE_URL())), 16, 540, this);
+				}else {
+					g.drawImage(ImageIO.read(new File(toolbar.getCLOSE_SOUND_IMAGE_URL())), 16, 540, this);
+				}
+			}
+			
+			//添加人机对战电脑玩家先行按钮图片
+			if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER)) {
+				if(toolbar.getCURRENT_BUTTON().equals("first")) {
+					if(checkerboard.getFirst_player()) {
+						g.drawImage(ImageIO.read(new File(toolbar.getBIG_COMPUTER_FIRST_IMAGE_URL())), 2, 617, this);
+					}else {
+						g.drawImage(ImageIO.read(new File(toolbar.getBIG_PLAYER_FIRST_IMAGE_URL())), 2, 617, this);
+					}
+				}else {
+					if(checkerboard.getFirst_player()) {
+						g.drawImage(ImageIO.read(new File(toolbar.getCOMPUTER_FIRST_IMAGE_URL())), 5, 620, this);
+					}else {
+						g.drawImage(ImageIO.read(new File(toolbar.getPLAYER_FIRST_IMAGE_URL())), 5, 620, this);
+					}
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

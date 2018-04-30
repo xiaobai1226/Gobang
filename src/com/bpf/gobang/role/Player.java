@@ -91,10 +91,14 @@ public class Player implements ChessPlayer{
 					Common.getCommon().setCurrent_status(false);
 					checkerboard.setTimerRun(false);
 					//存储胜利方
-					if(current_chess_piece) {
-						checkerboard.setGame_result(2);
-					}else {
-						checkerboard.setGame_result(1);
+					if(Common.getCommon().getCurrent_page().equals(Common.TWOPLAYER)) {
+						if(current_chess_piece) {
+							checkerboard.setGame_result(2);
+						}else {
+							checkerboard.setGame_result(1);
+						}
+					}else if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER)) {
+						checkerboard.setGame_result(3);
 					}
 					//执行五子连珠闪烁
 					CheckerboardFunction.connectedPiecesFlash();

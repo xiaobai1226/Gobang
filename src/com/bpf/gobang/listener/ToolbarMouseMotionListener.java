@@ -39,6 +39,16 @@ public class ToolbarMouseMotionListener extends MouseMotionAdapter{
 			else if(e.getX() >= 18 && e.getX() <= 73 && e.getY() >= 440 && e.getY() <= 523) {
 				toolbar.setCURRENT_BUTTON("prompt");
 			}
+			//在声音按钮上
+			else if(e.getX() >= 16 && e.getX() <= 76 && e.getY() >= 540 && e.getY() <= 600) {
+				toolbar.setCURRENT_BUTTON("sound");
+			}
+			//在先行按钮上
+			else if(e.getX() >= 5 && e.getX() <= 90 && e.getY() >= 620 && e.getY() <= 690) {
+				if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER)) {
+					toolbar.setCURRENT_BUTTON("first");
+				}
+			}
 			CheckerboardFrame.getCheckerboardFrame().repaint();
 		}
 	}

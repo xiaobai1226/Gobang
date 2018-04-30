@@ -6,8 +6,6 @@ import java.awt.event.MouseMotionAdapter;
 import com.bpf.gobang.entity.Checkerboard;
 import com.bpf.gobang.entity.Common;
 import com.bpf.gobang.frame.CheckerboardFrame;
-import com.bpf.gobang.role.ChessPlayer;
-import com.bpf.gobang.role.Robot;
 
 /**
  * <p>Title: CheckerboardMouseMotionListener</p>
@@ -23,13 +21,7 @@ public class CheckerboardMouseMotionListener extends MouseMotionAdapter{
 	public void mouseMoved(MouseEvent e) {
 		//根据当前页面选择使用的棋盘属性
 		checkerboard = Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page());
-		if(Common.getCommon().getCurrent_page().equals(Common.COMPUTER_VS_PLAYER) 
-				&& checkerboard.getFirst_player()
-				&& checkerboard.getChessRecord().size() == 0) {
-			ChessPlayer robot = new Robot();
-			robot.put(9, 9);
-		}
-		
+				
 		//当前状态为true才可以操作
 		if(e.getX() >= 35 && e.getX() <= 765 && e.getY() >= 35 && e.getY() <= 765
 				&& Common.getCommon().getCurrent_status()) {

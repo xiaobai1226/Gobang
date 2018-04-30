@@ -105,6 +105,5 @@ public class ToolbarFunction {
 			bestFallingPoint = robotAlgorithm.bestFallingPoint();
 			robot.put(bestFallingPoint[0], bestFallingPoint[1]);
 		}
-		Checkerboard.getCheckerboard(Common.getCommon().getCurrent_page()).getFirst_player();
 	}
 }

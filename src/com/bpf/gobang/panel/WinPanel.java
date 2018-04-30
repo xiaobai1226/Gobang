@@ -70,6 +70,10 @@ public class WinPanel extends JPanel{
 				g.drawImage(ImageIO.read(new File(universalBoard.getBLACK_WIN_IMAGE_URL())), 0, 0, this);
 			}else if(checkerboard.getGame_result() == 2){
 				g.drawImage(ImageIO.read(new File(universalBoard.getWHITE_WIN_IMAGE_URL())), 0, 0, this);
+			}else if(checkerboard.getGame_result() == 3){
+				g.drawImage(ImageIO.read(new File(universalBoard.getWIN_IMAGE_URL())), 0, 0, this);
+			}else if(checkerboard.getGame_result() == 4){
+				g.drawImage(ImageIO.read(new File(universalBoard.getFAIL_IMAGE_URL())), 0, 0, this);
 			}else if(checkerboard.getGame_result() == 0) {
 				g.drawImage(ImageIO.read(new File(universalBoard.getDEUCE_IMAGE_URL())), 0, 0, this);
 			}
